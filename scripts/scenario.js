@@ -1,31 +1,43 @@
 class Scenario {
 
-    constructor(scenarioImage, positionX1, positionX2, positionY, speed) {
+    constructor(scenarioImage, speeds, startPositionX1, startPositionX2, positionY) {
         this.scenarioImage = scenarioImage;
-        this.positionX1 = positionX1;
-        this.positionX2 = positionX2;
+        this.startPositionX1 = startPositionX1;
+        this.startPositionX2 = startPositionX2;
         this.positionY = positionY;
-        this.speed = speed;
+        this.speeds = speeds;
+
+        this.positionsX1 = [];
+        this.positionsX2 = [];
+
+        this.scenarioImage.forEach(element => {
+            this.positionsX1.push(this.startPositionX1);
+            this.positionsX2.push(this.startPositionX2);
+        });
     }
 
     draw() {
-        image(this.scenarioImage, this.positionX1, this.positionY, width, height);
-        image(this.scenarioImage, this.positionX2, this.positionY, width, height);
+
+        this.scenarioImage.forEach((element, index) => {
+            image(element, this.positionsX1[index], this.positionY, width, height);
+            image(element, this.positionsX2[index], this.positionY, width, height);    
+        });
+        
         this.move();
     }
 
     move() {
+        this.movePositionX(this.positionsX1);
+        this.movePositionX(this.positionsX2);
+    }
 
-        this.positionX1 -= this.speed;
-        this.positionX2 -= this.speed;
-
-        if (this.positionX1 <= -width) {
-            this.positionX1 = width;
-        }
-
-        if (this.positionX2 <= -width) {
-            this.positionX2 = width;
-        }
+    movePositionX(positionsX) {
+        positionsX.forEach((element, index, array) => {
+            array[index] -= this.speeds[index];
+            if (array[index] <= -width) {
+                array[index] = width;
+            }
+        });
     }
 
 }
