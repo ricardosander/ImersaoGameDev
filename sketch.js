@@ -1,5 +1,6 @@
 let scenarioImage;
 let characterImage;
+let soundtrack;
 
 let scenario;
 let character;
@@ -7,6 +8,7 @@ let character;
 function preload() {
     scenarioImage = loadImage('assets/images/set/forest.png');
     characterImage = loadImage('assets/images/character/running.png');
+    soundtrack = loadSound('assets/sounds/soundtrack.mp3');
 }
 
 function setup() {
@@ -24,6 +26,8 @@ function setup() {
     let characterWidth = 2 * 110;
     let characterHeight = 2 * 135;
     character = new Character(characterImage, characterWidth, characterHeight);
+
+    soundtrack.loop();
 }
 
 function draw() {
