@@ -23,9 +23,9 @@ function setup() {
     let scenarioPositionY = 0;
     scenario = new Scenario(scenarioImage, scenarioPositionX1, scenarioPositionX2, scenarioPositionY, speed);
 
-    let characterWidth = 2 * 110;
-    let characterHeight = 2 * 135;
-    character = new Character(characterImage, characterWidth, characterHeight);
+    let characterWidth = 220;
+    let characterHeight = 270;
+    character = new Character(characterImage, characterWidth, characterHeight, characterWidth, characterHeight);
 
     soundtrack.loop();
 }
