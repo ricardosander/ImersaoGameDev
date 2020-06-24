@@ -27,7 +27,7 @@ function setup() {
     let characterHeight = 2 * 135;
     character = new Character(characterImage, characterWidth, characterHeight);
 
-    soundtrack.loop();
+    soundtrack.play();
 }
 
 function draw() {
