@@ -1,34 +1,26 @@
-let setImage;
+let scenarioImage;
 
-let x1;
-let x2;
-let y;
+let scenarioPositionX1;
+let scenarioPositionX2;
+let scenarioPositionY;
 let speed;
+let scenario;
 
 function preload() {
-    setImage = loadImage('assets/images/set/forest.png');
+    scenarioImage = loadImage('assets/images/set/forest.png');
 }
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
-    x1 = 0;
-    x2 = width;
-    y = 0;
-    speed = 10;
+
+    speed = 5;
+
+    scenarioPositionX1 = 0;
+    scenarioPositionX2 = width;
+    scenarioPositionY = 0;
+    scenario = new Scenario(scenarioImage, scenarioPositionX1, scenarioPositionX2, scenarioPositionY, speed);
 }
 
 function draw() {
-    image(setImage, x1, y, width, height);
-    image(setImage, x2, y, width, height);
-    
-    x1 -= speed;
-    x2 -= speed;
-
-    if (x1 <= -width) {
-        x1 = width;
-    }
-
-    if (x2 <= -width) {
-        x2 = width;
-    }
+    scenario.draw()
 }
