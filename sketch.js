@@ -9,10 +9,17 @@ let forestImage4;
 let forestImage5;
 let skyImage;
 let characterImage;
+let dropletsImage;
+
 let soundtrack;
+let jumpSound;
 
 let scenario;
 let character;
+let droplet;
+
+let gameOver;
+let paused;
 
 function preload() {
 
@@ -28,8 +35,10 @@ function preload() {
     skyImage = loadImage('assets/images/set/parallax/10_Sky.png');
     
     characterImage = loadImage('assets/images/character/running.png');
+    dropletImage = loadImage('assets/images/foes/droplet.png');
     
     soundtrack = loadSound('assets/sounds/soundtrack.mp3');
+    jumpSound = loadSound('assets/sounds/jump.mp3');
 }
 
 function setup() {
@@ -61,15 +70,89 @@ function setup() {
 
     const characterWidth = 220;
     const characterHeight = 270;
-    character = new Character(characterImage, characterWidth, characterHeight, characterWidth, characterHeight);
+    const characterStartX = 0;
+    character = new PlaybleCharacter(characterImage, characterWidth, characterHeight, characterWidth, characterHeight, characterStartX);
 
+    const dropletWidth = 104;
+    const dropletHeight = 104;
+    const dropletStartX = width;
+    droplet = new NoPlaybleCharacter(dropletImage, dropletWidth, dropletHeight, dropletWidth, dropletHeight, dropletStartX);
+
+    soundtrack.setVolume(0.1);
     soundtrack.loop();
+
+    gameOver = false;
+    paused = false;
+}
+
+function keyPressed() {
+    
+    if (keyCode == UP_ARROW) {
+        if (character.canJump()) {
+            character.jump()
+            jumpSound.play();
+        }
+    }
+
+    if (keyCode == RETURN && gameOver) {
+        setup();
+        loop();
+        return;
+    }
+
+    if (keyCode == RETURN && !paused) {
+        paused = true;
+        soundtrack.pause();
+        return;
+    }
+
+    if (keyCode == RETURN && paused) {
+        paused = false;
+        soundtrack.play();
+        loop();
+        return;
+    }
+    
 }
 
 function draw() {
     
+    if (paused) {
+
+        fill(255, 0, 0);
+        textSize(50);
+        text('PAUSED', width / 3, height / 3);
+        noLoop();
+
+        fill(0);
+        textSize(32);
+        text('Pressione ENTER novamente para continuar.', width / 4, height / 2);
+
+        return;
+    }
+
     background(255);
 
     scenario.draw();
+
+    droplet.move();
+    droplet.draw();
+
+    character.applyGravity();
     character.draw();
+
+    if (character.isColliding(droplet)) {
+        soundtrack.stop();
+
+        fill(255, 0, 0);
+        textSize(50);
+        text('GAME OVER', width / 3, height / 3);
+        
+        fill(0);
+        textSize(32);
+        text('Pressione ENTER para tentar novamente.', width / 4, height / 2);
+
+        gameOver = true;
+        noLoop();
+    }
 }

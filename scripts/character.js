@@ -1,6 +1,6 @@
 class Character {
     
-    constructor(characterImage, characterWidth, characterHeight, spriteWidth, spriteHeight) {
+    constructor(characterImage, characterWidth, characterHeight, spriteWidth, spriteHeight, startPositionX) {
         this.characterImage = characterImage;
         this.characterWidth = characterWidth;
         this.characterHeight = characterHeight;
@@ -9,13 +9,19 @@ class Character {
         
         this.currentFrameX = 0;
         this.currentFrameY = 0;
+        
+        this.startPositionX = startPositionX;
+        this.startPositionY = height - this.characterHeight;
+
+        this.positionX = this.startPositionX;
+        this.positionY = this.startPositionY;
     }
 
     draw() {
         image(
             this.characterImage, 
-            0, 
-            height - this.characterHeight, 
+            this.positionX, 
+            this.positionY, 
             this.characterWidth, 
             this.characterHeight, 
             this.currentFrameX, 
