@@ -18,7 +18,7 @@ class Character {
             this.spriteMap.spriteHeight
         );
         
-        this.coordinates.drawRects();
+        // this.coordinates.drawRects();
         
         this.animate();
     }
