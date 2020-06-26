@@ -1,3 +1,4 @@
+let click = true;
 let game;
 
 function preload() {
@@ -12,19 +13,35 @@ function preload() {
 }
 
 function setup() {
+
+    let screenWidth =  windowWidth;
+    let screenHeight =  windowHeight;
+
+    if (screenHeight > screenWidth) {
+        screenHeight = screenWidth;
+    }
+
     frameRate(40);
-    createCanvas(windowWidth, windowHeight);
+    createCanvas(screenWidth, screenHeight);
     game.setup();
 }
 
-function mousePressed() { 
+function touchStarted(event) {
+    click = false;
     game.keyPressed(UP_ARROW);
 }
 
-function keyPressed() {
+function mousePressed(event) {
+    if (click) {
+        game.keyPressed(UP_ARROW);
+    }
+}
+
+function keyPressed(event) {
     game.keyPressed(keyCode);
 }
 
 function draw() {
     game.draw();
 }
+
