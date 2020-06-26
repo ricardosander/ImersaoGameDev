@@ -355,5 +355,9 @@ function draw() {
         jumpSound.play();
     }
 
+    if (heart.isGone()) {
+        heart.coordinates.positionX = width * 3;
+    }
+
     score.increase(0.1);
 }
