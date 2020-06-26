@@ -18,23 +18,7 @@ let heatImage;
 let gameOverImage;
 let homeScreenImage;
 
-let soundtrack;
-let jumpSound;
-
-let scenario;
-let score;
-let character;
-let droplet;
-let flyngDroplet;
-let troll;
-
-let heart;
-
-let foes;
-let currentFoes;
-let currentFoesStartIndex;
-
-let status;
+let game;
 
 function preload() {
 
@@ -59,15 +43,15 @@ function preload() {
     gameOverImage = loadImage('assets/images/assets/game-over.png');
     homeScreenImage = loadImage('assets/images/assets/homescreen.png');
 
-    soundtrack = loadSound('assets/sounds/soundtrack.mp3');
-    jumpSound = loadSound('assets/sounds/jump.mp3');
+    const soundtrack = loadSound('assets/sounds/soundtrack.mp3');
+    const jumpSound = loadSound('assets/sounds/jump.mp3');
 
-    status = new Status();
+    game = new Game(soundtrack, jumpSound);
 }
 
 function setup() {
+    
     frameRate(40);
-
     createCanvas(windowWidth, windowHeight);
 
     const skySpeed = 0.5
@@ -84,15 +68,13 @@ function setup() {
     const scenarioPositionX2 = width;
     const scenarioPositionY = 0;
 
-    scenario = new Scenario(
+    const scenario = new Scenario(
         [skyImage, forestImage5, forestImage4, forestImage3, forestImage2, particlesImage2, forestImage1, particlesImage1, mistImage],
         [skySpeed, forest5Speed, forest4Speed, forest3Speed, forest2Speed, particles2Speed, forest1Speed, particles1Speed, mistSpeed],
         scenarioPositionX1,
         scenarioPositionX2,
         scenarioPositionY
     );
-
-    score = new Score();
 
     const defaultDeltaY = 100;
 
@@ -102,7 +84,7 @@ function setup() {
     const characterSpriteHeight = 270;
     const characterStartX = 50;
     const characterDeltaY = defaultDeltaY;
-    character = new PlaybleCharacter(
+    const character = new PlaybleCharacter(
         new SpriteMap(
             characterImage,
             characterSpriteWidth,
@@ -127,7 +109,7 @@ function setup() {
     const dropletSpriteHeight = 104;
     const dropletStartX = width;
     const dropletDeltaY = defaultDeltaY;
-    droplet = new NoPlaybleCharacter(
+    const droplet = new NoPlaybleCharacter(
         new SpriteMap(
             dropletImage,
             dropletSpriteWidth,
@@ -153,7 +135,7 @@ function setup() {
     const flyingDropletLastSpriteY = 750;
     const flyingDropletStartX = width;
     const flyingDropletDeltaY = defaultDeltaY + 150;
-    flyngDroplet = new NoPlaybleCharacter(
+    const flyngDroplet = new NoPlaybleCharacter(
         new SpriteMap(
             flyingDropletImage,
             flyingDropletSpriteWidth,
@@ -177,7 +159,7 @@ function setup() {
     const trollLastSpriteY = 2000;
     const trollStartX = width;
     const trollDeltaY = defaultDeltaY - 50;
-    troll = new NoPlaybleCharacter(
+    const troll = new NoPlaybleCharacter(
         new SpriteMap(
             trollImage,
             trollWidth,
@@ -195,7 +177,7 @@ function setup() {
         ),
     );
 
-    heart = new NoPlaybleCharacter(
+    const heart = new NoPlaybleCharacter(
         new SpriteMap(
             heartImage,
             200,
@@ -213,147 +195,19 @@ function setup() {
         ),
     );
 
-    foes = [
+    const foes = [
         droplet, 
         flyngDroplet, 
         troll
     ];
 
-    soundtrack.setVolume(0.1);
-
-    currentFoes = [];
-    currentFoesStartIndex = 0;
+    game.setup(scenario, character, foes, heart);
 }
 
 function keyPressed() {
-
-    if (keyCode == UP_ARROW && !status.isOver() && !status.isPaused() && status.isStarted()) {
-        if (character.canJump()) {
-            character.jump()
-            jumpSound.play();
-        }
-    }
-
-    if (keyCode == RETURN && status.isStarted() && status.isOver()) {
-        setup();
-        soundtrack.play();
-        status.restart();
-        loop();
-        return;
-    }
-
-    if (keyCode == RETURN && status.isStarted() && !status.isPaused()) {
-        status.pause()
-        character.coordinates.jumpingCount = 0;
-        soundtrack.pause();
-        return;
-    }
-
-    if (keyCode == RETURN && status.isStarted() && status.isPaused()) {
-        status.resume();
-        soundtrack.play();
-        loop();
-        return;
-    }
-
-    if (keyCode == RETURN && !status.isStarted()) {
-        status.start();
-        setup();
-        soundtrack.loop();
-        loop();
-    }
-
+    game.keyPressed(keyCode);
 }
 
 function draw() {
-
-    if (currentFoes.length == 0) {
-        foes.slice(currentFoesStartIndex, currentFoesStartIndex + 1).forEach(foe => {
-            foe.restart();
-            currentFoes.push(foe);
-        });
-        currentFoesStartIndex++;
-        if (currentFoesStartIndex >= foes.length) {
-            currentFoesStartIndex = 0;
-        }
-    }
-
-    if (!status.isStarted()) {
-        
-        image(homeScreenImage, 0, 0, width, height);
-
-        fill(0);
-        textSize(50);
-        text('AS AVENTURAS DA HIPSTA', width * 0.25, height * 0.2);
-
-        textSize(20);
-        text('Aqui deveria ter uma introdução legal feita por um não backender.', width * 0.25, height * 0.4);
-
-        fill(255);
-        textSize(30);
-        text('Pressione ENTER para começar.', width * 0.29, height * 0.6);
-
-        noLoop();
-        return;
-    }
-
-    if (status.isPaused()) {
-
-        fill(255, 0, 0);
-        textSize(50);
-        text('PAUSED', width * 0.5, height * 0.2);
-        noLoop();
-
-        fill(0);
-        textSize(32);
-        text('Pressione ENTER novamente para continuar.', width * 0.6, height * 0.5);
-
-        return;
-    }
-
-    background(255);
-
-    scenario.draw();
-    score.draw();
-
-    currentFoes.forEach((foe, index) => {
-        foe.move();
-        foe.draw();
-        if (foe.isGone()) {
-            currentFoes.splice(index, 1);
-        }
-    });
-
-    character.applyGravity();
-    character.draw();
-
-    heart.draw();
-    heart.move();
-
-    if (currentFoes.filter(foe => character.isColliding(foe)).length > 0) {
-        soundtrack.stop();
-
-        fill(0);
-        textSize(32);
-        text('Pressione ENTER para tentar novamente.', width * 0.7, height * 0.5);
-
-        image(gameOverImage, (width - gameOverImage.width) * 0.5 , (height - gameOverImage.height) * 0.3);
-
-        status.over();
-        soundtrack.stop();
-        noLoop();
-        return;
-    } 
-
-    if (character.isColliding(heart)) {
-        score.increase(25);    
-        heart.coordinates.positionX = width * 2;
-        jumpSound.play();
-    }
-
-    if (heart.isGone()) {
-        heart.coordinates.positionX = width * 3;
-    }
-
-    score.increase(0.1);
+    game.draw();
 }
