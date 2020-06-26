@@ -15,6 +15,7 @@ let flyingDropletImage;
 let trollImage;
 
 let gameOverImage;
+let homeScreenImage;
 
 let soundtrack;
 let jumpSound;
@@ -27,6 +28,7 @@ let flyngDroplet;
 let troll;
 let foes;
 
+let gameStart;
 let gameOver;
 let paused;
 
@@ -49,9 +51,12 @@ function preload() {
     trollImage = loadImage('assets/images/foes/troll.png');
 
     gameOverImage = loadImage('assets/images/assets/game-over.png');
+    homeScreenImage = loadImage('assets/images/assets/homescreen.png');
 
     soundtrack = loadSound('assets/sounds/soundtrack.mp3');
     jumpSound = loadSound('assets/sounds/jump.mp3');
+
+    gameStart = false;
 }
 
 function setup() {
@@ -179,7 +184,6 @@ function setup() {
     foes = [droplet, flyngDroplet, troll];
 
     soundtrack.setVolume(0.1);
-    soundtrack.loop();
 
     gameOver = false;
     paused = false;
@@ -187,46 +191,73 @@ function setup() {
 
 function keyPressed() {
 
-    if (keyCode == UP_ARROW) {
+    if (!gameOver && !paused && gameStart && keyCode == UP_ARROW) {
         if (character.canJump()) {
             character.jump()
             jumpSound.play();
         }
     }
 
-    if (keyCode == RETURN && gameOver) {
+    if (gameStart && keyCode == RETURN && gameOver) {
         setup();
+        soundtrack.play();
         loop();
         return;
     }
 
-    if (keyCode == RETURN && !paused) {
+    if (gameStart && keyCode == RETURN && !paused) {
         paused = true;
         soundtrack.pause();
         return;
     }
 
-    if (keyCode == RETURN && paused) {
+    if (gameStart && keyCode == RETURN && paused) {
         paused = false;
         soundtrack.play();
         loop();
         return;
     }
 
+    if (!gameStart && keyCode == RETURN) {
+        gameStart = true;
+        setup();
+        soundtrack.loop();
+        loop();
+    }
+
 }
 
 function draw() {
+
+    if (!gameStart) {
+        
+        image(homeScreenImage, 0, 0, width, height);
+
+        fill(0);
+        textSize(50);
+        text('AS AVENTURAS DA HIPSTA', width * 0.25, height * 0.2);
+
+        textSize(20);
+        text('Aqui deveria ter uma introdução legal feita por um não backender.', width * 0.25, height * 0.4);
+
+        fill(255);
+        textSize(30);
+        text('Pressione ENTER para começar.', width * 0.29, height * 0.6);
+
+        noLoop();
+        return;
+    }
 
     if (paused) {
 
         fill(255, 0, 0);
         textSize(50);
-        text('PAUSED', width / 3, height / 3);
+        text('PAUSED', width * 0.5, height * 0.2);
         noLoop();
 
         fill(0);
         textSize(32);
-        text('Pressione ENTER novamente para continuar.', width / 4, height / 2);
+        text('Pressione ENTER novamente para continuar.', width * 0.6, height * 0.5);
 
         return;
     }
