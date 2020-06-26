@@ -1,6 +1,7 @@
 class CharacterFactory {
 
-    constructor() {
+    constructor(imageFactory) {
+        this.imageFactory = imageFactory;
         this.defaultDeltaY = 100;
     }
 
@@ -15,11 +16,11 @@ class CharacterFactory {
 
         const character = new PlaybleCharacter(
             new SpriteMap(
-                characterImage,
+                this.imageFactory.characterImage,
                 characterSpriteWidth,
                 characterSpriteHeight,
-                characterImage.width,
-                characterImage.height,
+                this.imageFactory.characterImage.width,
+                this.imageFactory.characterImage.height,
             ),
             new Coordinates(
                 characterStartX,
@@ -47,7 +48,7 @@ class CharacterFactory {
 
         return new NoPlaybleCharacter(
             new SpriteMap(
-                heartImage,
+                this.imageFactory.heartImage,
                 200,
                 167,
                 200,
@@ -75,11 +76,11 @@ class CharacterFactory {
 
         return new NoPlaybleCharacter(
             new SpriteMap(
-                dropletImage,
+                this.imageFactory.dropletImage,
                 dropletSpriteWidth,
                 dropletSpriteHeight,
-                dropletImage.width,
-                dropletImage.height
+                this.imageFactory.dropletImage.width,
+                this.imageFactory.dropletImage.height
             ),
             new Coordinates(
                 dropletStartX,
@@ -105,7 +106,7 @@ class CharacterFactory {
 
         return new NoPlaybleCharacter(
             new SpriteMap(
-                flyingDropletImage,
+                this.imageFactory.flyingDropletImage,
                 flyingDropletSpriteWidth,
                 flyingDropletSpriteHeight,
                 flyingDropletLastSpriteX,
@@ -133,7 +134,7 @@ class CharacterFactory {
 
         return new NoPlaybleCharacter(
             new SpriteMap(
-                trollImage,
+                this.imageFactory.trollImage,
                 trollWidth,
                 trollHeight,
                 trollLastSpriteX,

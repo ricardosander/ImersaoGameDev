@@ -1,11 +1,11 @@
 class ScenarioFactory {
     
-    constructor() {
-
+    constructor(imageFactory) {
+        this.imageFactory = imageFactory;
     }
 
     createScenario() {
-        
+
         const skySpeed = 0.5
         const forest5Speed = 1;
         const forest4Speed = 2;
@@ -21,7 +21,17 @@ class ScenarioFactory {
         const scenarioPositionY = 0;
 
         return new Scenario(
-            [skyImage, forestImage5, forestImage4, forestImage3, forestImage2, particlesImage2, forestImage1, particlesImage1, mistImage],
+            [
+                this.imageFactory.skyImage, 
+                this.imageFactory.forestImage5, 
+                this.imageFactory.forestImage4, 
+                this.imageFactory.forestImage3, 
+                this.imageFactory.forestImage2, 
+                this.imageFactory.particlesImage2, 
+                this.imageFactory.forestImage1, 
+                this.imageFactory.particlesImage1, 
+                this.imageFactory.mistImage
+            ],
             [skySpeed, forest5Speed, forest4Speed, forest3Speed, forest2Speed, particles2Speed, forest1Speed, particles1Speed, mistSpeed],
             scenarioPositionX1,
             scenarioPositionX2,

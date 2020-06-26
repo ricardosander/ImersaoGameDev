@@ -1,10 +1,12 @@
 class Game {
 
-    constructor(characterFactory, scenarioFactory, soundFactory) {
+    constructor(imageFactory, soundFactory) {
         
-        this.characterFactory = characterFactory;
-        this.scenarioFactory = scenarioFactory;
+        this.imageFactory = imageFactory;
         this.soundFactory = soundFactory;
+
+        this.characterFactory = new CharacterFactory(this.imageFactory);
+        this.scenarioFactory = new ScenarioFactory(this.imageFactory);
 
         this.soundtrack = soundFactory.getSoundtrack();
         this.jumpSound = soundFactory.getJumpSound();
@@ -83,7 +85,7 @@ class Game {
 
     if (!this.status.isStarted()) {
         
-        image(homeScreenImage, 0, 0, width, height);
+        image(this.imageFactory.homeScreenImage, 0, 0, width, height);
 
         fill(0);
         textSize(50);
@@ -140,7 +142,11 @@ class Game {
         textSize(32);
         text('Pressione ENTER para tentar novamente.', width * 0.7, height * 0.5);
 
-        image(gameOverImage, (width - gameOverImage.width) * 0.5 , (height - gameOverImage.height) * 0.3);
+        image(
+            this.imageFactory.gameOverImage, 
+            (width - this.imageFactory.gameOverImage.width) * 0.5 , 
+            (height - this.imageFactory.gameOverImage.height) * 0.3
+        );
 
         this.status.over();
         this.soundtrack.stop();
