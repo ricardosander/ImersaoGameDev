@@ -40,7 +40,7 @@ class Game {
             }
         }
 
-        if (keyCode == RETURN && this.status.isStarted() && this.status.isOver()) {
+        if ((keyCode == RETURN || keyCode == UP_ARROW) && this.status.isStarted() && this.status.isOver()) {
             setup();
             this.soundtrack.play();
             this.status.restart();
@@ -62,7 +62,7 @@ class Game {
             return;
         }
 
-        if (keyCode == RETURN && !this.status.isStarted()) {
+        if ((keyCode == RETURN || keyCode == UP_ARROW) && !this.status.isStarted()) {
             this.status.start();
             setup();
             this.soundtrack.loop();

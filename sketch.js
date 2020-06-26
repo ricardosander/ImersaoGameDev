@@ -17,6 +17,10 @@ function setup() {
     game.setup();
 }
 
+function mousePressed() { 
+    game.keyPressed(UP_ARROW);
+}
+
 function keyPressed() {
     game.keyPressed(keyCode);
 }
