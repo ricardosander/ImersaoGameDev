@@ -1,14 +1,11 @@
 class NoPlaybleCharacter extends Character {
 
-    constructor(characterImage, characterWidth, characterHeight, spriteWidth, spriteHeight, startPositionX) {
-        super(characterImage, characterWidth, characterHeight, spriteWidth, spriteHeight, startPositionX);
+    constructor(spriteMap, coordinates) {
+        super(spriteMap, coordinates);
     }
 
     move() {
-        this.positionX -= 20;
-        if (this.positionX < -this.characterWidth) {
-            this.positionX = this.startPositionX;
-        }
+        this.coordinates.move(-20)
     }
 
 }

@@ -10,6 +10,8 @@ let forestImage5;
 let skyImage;
 let characterImage;
 let dropletsImage;
+let flyingDropletImage;
+let trollImage;
 
 let soundtrack;
 let jumpSound;
@@ -17,6 +19,9 @@ let jumpSound;
 let scenario;
 let character;
 let droplet;
+let flyngDroplet;
+let troll;
+let foes;
 
 let gameOver;
 let paused;
@@ -33,10 +38,12 @@ function preload() {
     forestImage4 = loadImage('assets/images/set/parallax/08_Forest.png');
     forestImage5 = loadImage('assets/images/set/parallax/09_Forest.png');
     skyImage = loadImage('assets/images/set/parallax/10_Sky.png');
-    
+
     characterImage = loadImage('assets/images/character/running.png');
     dropletImage = loadImage('assets/images/foes/droplet.png');
-    
+    flyingDropletImage = loadImage('assets/images/foes/flying_droplet.png');
+    trollImage = loadImage('assets/images/foes/troll.png');
+
     soundtrack = loadSound('assets/sounds/soundtrack.mp3');
     jumpSound = loadSound('assets/sounds/jump.mp3');
 }
@@ -59,24 +66,107 @@ function setup() {
     const scenarioPositionX1 = 0;
     const scenarioPositionX2 = width;
     const scenarioPositionY = 0;
-    
+
     scenario = new Scenario(
-        [skyImage, forestImage5, forestImage4, forestImage3, forestImage2, particlesImage2, forestImage1, particlesImage1, mistImage], 
+        [skyImage, forestImage5, forestImage4, forestImage3, forestImage2, particlesImage2, forestImage1, particlesImage1, mistImage],
         [skySpeed, forest5Speed, forest4Speed, forest3Speed, forest2Speed, particles2Speed, forest1Speed, particles1Speed, mistSpeed],
-        scenarioPositionX1, 
-        scenarioPositionX2, 
+        scenarioPositionX1,
+        scenarioPositionX2,
         scenarioPositionY
     );
 
     const characterWidth = 220;
     const characterHeight = 270;
+    const characterSpriteWidth = 220;
+    const characterSpriteHeight = 270;
     const characterStartX = 0;
-    character = new PlaybleCharacter(characterImage, characterWidth, characterHeight, characterWidth, characterHeight, characterStartX);
+    const characterDeltaY = 0;
+    character = new PlaybleCharacter(
+        new SpriteMap(
+            characterImage,
+            characterSpriteWidth,
+            characterSpriteHeight,
+            characterImage.width,
+            characterImage.height,
+        ),
+        new Coordinates(
+            characterStartX,
+            characterDeltaY,
+            characterWidth,
+            characterHeight
+        ),
+        
+    );
 
     const dropletWidth = 104;
     const dropletHeight = 104;
-    const dropletStartX = width;
-    droplet = new NoPlaybleCharacter(dropletImage, dropletWidth, dropletHeight, dropletWidth, dropletHeight, dropletStartX);
+    const dropletSpriteWidth = 104;
+    const dropletSpriteHeight = 104;
+    const dropletStartX = 3 * width;
+    const dropletDeltaY = 0;
+    droplet = new NoPlaybleCharacter(
+        new SpriteMap(
+            dropletImage,
+            dropletSpriteWidth,
+            dropletSpriteHeight,
+            dropletImage.width,
+            dropletImage.height
+        ),
+        new Coordinates(
+            dropletStartX,
+            dropletDeltaY,
+            dropletWidth,
+            dropletHeight
+        ),
+    );
+
+    const flyingDropletWidth = 200;
+    const flyingDropletHeight = 150;
+    const flyingDropletSpriteWidth = 200;
+    const flyingDropletSpriteHeight = 150;
+    const flyingDropletLastSpriteX = 0;
+    const flyingDropletLastSpriteY = 750;
+    const flyingDropletStartX = width;
+    const flyingDropletDeltaY = 150;
+    flyngDroplet = new NoPlaybleCharacter(
+        new SpriteMap(
+            flyingDropletImage,
+            flyingDropletSpriteWidth,
+            flyingDropletSpriteHeight,
+            flyingDropletLastSpriteX,
+            flyingDropletLastSpriteY
+        ),
+        new Coordinates(
+            flyingDropletStartX,
+            flyingDropletDeltaY,
+            flyingDropletWidth,
+            flyingDropletHeight
+        ),
+    );
+
+    const trollWidth = 400;
+    const trollHeight = 400;
+    const trollLastSpriteX = 800;
+    const trollLastSpriteY = 2000;
+    const trollStartX = width * 2;
+    const trollDeltaY = 0;
+    troll = new NoPlaybleCharacter(
+        new SpriteMap(
+            trollImage,
+            trollWidth,
+            trollHeight,
+            trollLastSpriteX,
+            trollLastSpriteY
+        ),
+        new Coordinates(
+            trollStartX,
+            trollDeltaY,
+            trollWidth,
+            trollHeight
+        ),
+    );
+
+    foes = [droplet, flyngDroplet, troll];
 
     soundtrack.setVolume(0.1);
     soundtrack.loop();
@@ -86,7 +176,7 @@ function setup() {
 }
 
 function keyPressed() {
-    
+
     if (keyCode == UP_ARROW) {
         if (character.canJump()) {
             character.jump()
@@ -112,11 +202,11 @@ function keyPressed() {
         loop();
         return;
     }
-    
+
 }
 
 function draw() {
-    
+
     if (paused) {
 
         fill(255, 0, 0);
@@ -135,19 +225,21 @@ function draw() {
 
     scenario.draw();
 
-    droplet.move();
-    droplet.draw();
+    foes.forEach(foe => {
+        foe.move();
+        foe.draw();
+    });
 
     character.applyGravity();
     character.draw();
 
-    if (character.isColliding(droplet)) {
+    if (foes.filter(foe => character.isColliding(foe)).length > 0) {
         soundtrack.stop();
 
         fill(255, 0, 0);
         textSize(50);
         text('GAME OVER', width / 3, height / 3);
-        
+
         fill(0);
         textSize(32);
         text('Pressione ENTER para tentar novamente.', width / 4, height / 2);
