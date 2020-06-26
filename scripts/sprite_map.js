@@ -12,14 +12,14 @@ class SpriteMap {
     }
 
     animate() {
-        
+
         if (this.currentFrameX == this.lastSpriteX && this.currentFrameY == this.lastSpriteY) {
             this.currentFrameX = 0;
             this.currentFrameY = 0;
         } else {
             this.currentFrameX += this.spriteWidth;
         }
-        
+
 
         if (this.currentFrameX > this.spriteImage.width - this.spriteWidth) {
             this.currentFrameX = 0;

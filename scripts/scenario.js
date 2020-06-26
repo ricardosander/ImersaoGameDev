@@ -20,9 +20,9 @@ class Scenario {
 
         this.scenarioImage.forEach((element, index) => {
             image(element, this.positionsX1[index], this.positionY, width, height);
-            image(element, this.positionsX2[index], this.positionY, width, height);    
+            image(element, this.positionsX2[index], this.positionY, width, height);
         });
-        
+
         this.move();
     }
 

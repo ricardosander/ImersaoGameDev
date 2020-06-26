@@ -1,5 +1,5 @@
 class Coordinates {
-    
+
     constructor(startPositionX, deltaY, width, cHeight, positionPrecision, sizePrecision) {
         this.startPositionX = startPositionX;
         this.deltaY = deltaY;
@@ -45,7 +45,7 @@ class Coordinates {
 
         this.positionY += this.speedPositionY;
         this.speedPositionY += this.gravity;
-        
+
         if (this.positionY > this.startPositionY) {
             this.positionY = this.startPositionY;
             this.speedPositionY = 0;
@@ -56,13 +56,13 @@ class Coordinates {
     isColliding(target) {
 
         const isColliding = collideRectRect(
-            this.positionX * this.positionPrecision, 
-            this.positionY * this.positionPrecision, 
-            this.width * this.sizePrecision, 
-            this.height * this.sizePrecision, 
-            target.positionX * target.positionPrecision, 
-            target.positionY* target.positionPrecision, 
-            target.width * target.sizePrecision, 
+            this.positionX * this.positionPrecision,
+            this.positionY * this.positionPrecision,
+            this.width * this.sizePrecision,
+            this.height * this.sizePrecision,
+            target.positionX * target.positionPrecision,
+            target.positionY * target.positionPrecision,
+            target.width * target.sizePrecision,
             target.height * target.sizePrecision
         );
 

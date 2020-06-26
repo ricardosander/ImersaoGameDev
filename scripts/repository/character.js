@@ -38,8 +38,8 @@ class CharacterRepository {
 
     createFoes() {
         return [
-            this.createDroplet(), 
-            this.createFlyngDroplet(), 
+            this.createDroplet(),
+            this.createFlyngDroplet(),
             this.createTroll()
         ];
     }
