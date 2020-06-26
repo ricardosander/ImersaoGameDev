@@ -94,7 +94,7 @@ function setup() {
     const characterHeight = 270;
     const characterSpriteWidth = 220;
     const characterSpriteHeight = 270;
-    const characterStartX = 0;
+    const characterStartX = 50;
     const characterDeltaY = defaultDeltaY;
     character = new PlaybleCharacter(
         new SpriteMap(
@@ -108,7 +108,9 @@ function setup() {
             characterStartX,
             characterDeltaY,
             characterWidth,
-            characterHeight
+            characterHeight,
+            1.11,
+            0.9
         ),
         
     );
@@ -117,7 +119,7 @@ function setup() {
     const dropletHeight = 104;
     const dropletSpriteWidth = 104;
     const dropletSpriteHeight = 104;
-    const dropletStartX = 3 * width;
+    const dropletStartX = width;
     const dropletDeltaY = defaultDeltaY;
     droplet = new NoPlaybleCharacter(
         new SpriteMap(
@@ -131,7 +133,9 @@ function setup() {
             dropletStartX,
             dropletDeltaY,
             dropletWidth,
-            dropletHeight
+            dropletHeight,
+            1.03,
+            0.7
         ),
     );
 
@@ -155,7 +159,9 @@ function setup() {
             flyingDropletStartX,
             flyingDropletDeltaY,
             flyingDropletWidth,
-            flyingDropletHeight
+            flyingDropletHeight,
+            1.05,
+            0.6
         ),
     );
 
@@ -163,8 +169,8 @@ function setup() {
     const trollHeight = 400;
     const trollLastSpriteX = 800;
     const trollLastSpriteY = 2000;
-    const trollStartX = width * 2;
-    const trollDeltaY = defaultDeltaY;
+    const trollStartX = width;
+    const trollDeltaY = defaultDeltaY - 50;
     troll = new NoPlaybleCharacter(
         new SpriteMap(
             trollImage,
@@ -177,11 +183,17 @@ function setup() {
             trollStartX,
             trollDeltaY,
             trollWidth,
-            trollHeight
+            trollHeight,
+            1.10,
+            0.7
         ),
     );
 
-    foes = [droplet, flyngDroplet, troll];
+    foes = [
+        droplet, 
+        flyngDroplet, 
+        troll
+    ];
 
     soundtrack.setVolume(0.1);
 
@@ -286,6 +298,7 @@ function draw() {
         image(gameOverImage, (width - gameOverImage.width) * 0.5 , (height - gameOverImage.height) * 0.3);
 
         gameOver = true;
+        soundtrack.stop();
         noLoop();
         return;
     } 

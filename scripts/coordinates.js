@@ -1,10 +1,12 @@
 class Coordinates {
     
-    constructor(startPositionX, deltaY, width, cHeight) {
+    constructor(startPositionX, deltaY, width, cHeight, positionPrecision, sizePrecision) {
         this.startPositionX = startPositionX;
         this.deltaY = deltaY;
         this.width = width;
         this.height = cHeight;
+        this.positionPrecision = positionPrecision;
+        this.sizePrecision = sizePrecision;
 
         this.startPositionX = this.startPositionX;
         this.startPositionY = height - this.height - this.deltaY;
@@ -49,14 +51,14 @@ class Coordinates {
     isColliding(target) {
 
         const isColliding = collideRectRect(
-            this.positionX + 40, 
-            this.positionY + 50, 
-            this.width * 0.5, 
-            this.height * 0.7, 
-            target.positionX + 20, 
-            target.positionY + 10, 
-            target.width * 0.9, 
-            target.height * 0.8
+            this.positionX * this.positionPrecision, 
+            this.positionY * this.positionPrecision, 
+            this.width * this.sizePrecision, 
+            this.height * this.sizePrecision, 
+            target.positionX * target.positionPrecision, 
+            target.positionY* target.positionPrecision, 
+            target.width * target.sizePrecision, 
+            target.height * target.sizePrecision
         );
 
         if (isColliding) {
@@ -70,10 +72,10 @@ class Coordinates {
     drawRects() {
         noFill();
         rect(
-            this.positionX,
-            this.positionY,
-            this.width,
-            this.height
+            this.positionX * this.positionPrecision,
+            this.positionY * this.positionPrecision,
+            this.width * this.sizePrecision,
+            this.height * this.sizePrecision
         );
     }
 }
