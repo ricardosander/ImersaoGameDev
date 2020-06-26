@@ -34,7 +34,7 @@ let foes;
 let currentFoes;
 let currentFoesStartIndex;
 
-let game;
+let status;
 
 function preload() {
 
@@ -62,7 +62,7 @@ function preload() {
     soundtrack = loadSound('assets/sounds/soundtrack.mp3');
     jumpSound = loadSound('assets/sounds/jump.mp3');
 
-    game = new Game();
+    status = new Status();
 }
 
 function setup() {
@@ -227,37 +227,37 @@ function setup() {
 
 function keyPressed() {
 
-    if (keyCode == UP_ARROW && !game.isOver() && !game.isPaused() && game.isStarted()) {
+    if (keyCode == UP_ARROW && !status.isOver() && !status.isPaused() && status.isStarted()) {
         if (character.canJump()) {
             character.jump()
             jumpSound.play();
         }
     }
 
-    if (keyCode == RETURN && game.isStarted() && game.isOver()) {
+    if (keyCode == RETURN && status.isStarted() && status.isOver()) {
         setup();
         soundtrack.play();
-        game.restart();
+        status.restart();
         loop();
         return;
     }
 
-    if (keyCode == RETURN && game.isStarted() && !game.isPaused()) {
-        game.pause()
+    if (keyCode == RETURN && status.isStarted() && !status.isPaused()) {
+        status.pause()
         character.coordinates.jumpingCount = 0;
         soundtrack.pause();
         return;
     }
 
-    if (keyCode == RETURN && game.isStarted() && game.isPaused()) {
-        game.resume();
+    if (keyCode == RETURN && status.isStarted() && status.isPaused()) {
+        status.resume();
         soundtrack.play();
         loop();
         return;
     }
 
-    if (keyCode == RETURN && !game.isStarted()) {
-        game.start();
+    if (keyCode == RETURN && !status.isStarted()) {
+        status.start();
         setup();
         soundtrack.loop();
         loop();
@@ -278,7 +278,7 @@ function draw() {
         }
     }
 
-    if (!game.isStarted()) {
+    if (!status.isStarted()) {
         
         image(homeScreenImage, 0, 0, width, height);
 
@@ -297,7 +297,7 @@ function draw() {
         return;
     }
 
-    if (game.isPaused()) {
+    if (status.isPaused()) {
 
         fill(255, 0, 0);
         textSize(50);
@@ -339,7 +339,7 @@ function draw() {
 
         image(gameOverImage, (width - gameOverImage.width) * 0.5 , (height - gameOverImage.height) * 0.3);
 
-        game.over();
+        status.over();
         soundtrack.stop();
         noLoop();
         return;

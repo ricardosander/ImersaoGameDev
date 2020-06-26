@@ -1,4 +1,4 @@
-class Game {
+class Status {
 
     constructor() {
         this.isGameOver = false;
