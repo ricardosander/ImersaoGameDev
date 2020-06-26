@@ -207,6 +207,7 @@ function keyPressed() {
 
     if (gameStart && keyCode == RETURN && !paused) {
         paused = true;
+        character.coordinates.jumpingCount = 0;
         soundtrack.pause();
         return;
     }
