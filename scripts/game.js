@@ -23,7 +23,7 @@ class Game {
         this.scenario = this.scenarioRepository.createScenario();
         this.character = this.characterRepository.createPlaybleCharacter();
         this.heart = this.characterRepository.createHeart();
-        this.foes = [];//this.characterRepository.createFoes();
+        this.foes = this.characterRepository.createFoes();
 
         this.score.restart();
 
