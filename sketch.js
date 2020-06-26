@@ -83,12 +83,14 @@ function setup() {
 
     score = new Score();
 
+    const defaultDeltaY = 100;
+
     const characterWidth = 220;
     const characterHeight = 270;
     const characterSpriteWidth = 220;
     const characterSpriteHeight = 270;
     const characterStartX = 0;
-    const characterDeltaY = 0;
+    const characterDeltaY = defaultDeltaY;
     character = new PlaybleCharacter(
         new SpriteMap(
             characterImage,
@@ -111,7 +113,7 @@ function setup() {
     const dropletSpriteWidth = 104;
     const dropletSpriteHeight = 104;
     const dropletStartX = 3 * width;
-    const dropletDeltaY = 0;
+    const dropletDeltaY = defaultDeltaY;
     droplet = new NoPlaybleCharacter(
         new SpriteMap(
             dropletImage,
@@ -135,7 +137,7 @@ function setup() {
     const flyingDropletLastSpriteX = 0;
     const flyingDropletLastSpriteY = 750;
     const flyingDropletStartX = width;
-    const flyingDropletDeltaY = 150;
+    const flyingDropletDeltaY = defaultDeltaY + 150;
     flyngDroplet = new NoPlaybleCharacter(
         new SpriteMap(
             flyingDropletImage,
@@ -157,7 +159,7 @@ function setup() {
     const trollLastSpriteX = 800;
     const trollLastSpriteY = 2000;
     const trollStartX = width * 2;
-    const trollDeltaY = 0;
+    const trollDeltaY = defaultDeltaY;
     troll = new NoPlaybleCharacter(
         new SpriteMap(
             trollImage,
