@@ -8,10 +8,13 @@ let forestImage3;
 let forestImage4;
 let forestImage5;
 let skyImage;
+
 let characterImage;
 let dropletsImage;
 let flyingDropletImage;
 let trollImage;
+
+let gameOverImage;
 
 let soundtrack;
 let jumpSound;
@@ -44,6 +47,8 @@ function preload() {
     dropletImage = loadImage('assets/images/foes/droplet.png');
     flyingDropletImage = loadImage('assets/images/foes/flying_droplet.png');
     trollImage = loadImage('assets/images/foes/troll.png');
+
+    gameOverImage = loadImage('assets/images/assets/game-over.png');
 
     soundtrack = loadSound('assets/sounds/soundtrack.mp3');
     jumpSound = loadSound('assets/sounds/jump.mp3');
@@ -240,13 +245,11 @@ function draw() {
     if (foes.filter(foe => character.isColliding(foe)).length > 0) {
         soundtrack.stop();
 
-        fill(255, 0, 0);
-        textSize(50);
-        text('GAME OVER', width / 3, height / 3);
-
         fill(0);
         textSize(32);
-        text('Pressione ENTER para tentar novamente.', width / 4, height / 2);
+        text('Pressione ENTER para tentar novamente.', width * 0.7, height * 0.5);
+
+        image(gameOverImage, (width - gameOverImage.width) * 0.5 , (height - gameOverImage.height) * 0.3);
 
         gameOver = true;
         noLoop();
