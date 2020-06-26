@@ -28,6 +28,9 @@ let flyngDroplet;
 let troll;
 let foes;
 
+let currentFoesStartIndex;
+let currentFoes;
+
 let gameStart;
 let gameOver;
 let paused;
@@ -199,6 +202,9 @@ function setup() {
 
     gameOver = false;
     paused = false;
+
+    currentFoes = [];
+    currentFoesStartIndex = 0;
 }
 
 function keyPressed() {
@@ -242,6 +248,17 @@ function keyPressed() {
 
 function draw() {
 
+    if (currentFoes.length == 0) {
+        foes.slice(currentFoesStartIndex, currentFoesStartIndex+1).forEach(foe => {
+            foe.restart();
+            currentFoes.push(foe);
+        });
+        currentFoesStartIndex++;
+        if (currentFoesStartIndex >= foes.length) {
+            currentFoesStartIndex = 0;
+        }
+    }
+
     if (!gameStart) {
         
         image(homeScreenImage, 0, 0, width, height);
@@ -280,15 +297,18 @@ function draw() {
     scenario.draw();
     score.draw();
 
-    foes.forEach(foe => {
+    currentFoes.forEach((foe, index) => {
         foe.move();
         foe.draw();
+        if (foe.isGone()) {
+            currentFoes.splice(index, 1);
+        }
     });
 
     character.applyGravity();
     character.draw();
 
-    if (foes.filter(foe => character.isColliding(foe)).length > 0) {
+    if (currentFoes.filter(foe => character.isColliding(foe)).length > 0) {
         soundtrack.stop();
 
         fill(0);

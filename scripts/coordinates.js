@@ -31,9 +31,14 @@ class Coordinates {
 
     move(speed) {
         this.positionX += speed;
-        if (this.positionX < -this.width) {
-            this.positionX = this.startPositionX;
-        }
+    }
+
+    isGone() {
+        return this.positionX < -this.width;
+    }
+
+    restart() {
+        this.positionX = this.startPositionX;
     }
 
     applyGravity() {
