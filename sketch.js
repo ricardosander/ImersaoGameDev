@@ -17,6 +17,7 @@ let soundtrack;
 let jumpSound;
 
 let scenario;
+let score;
 let character;
 let droplet;
 let flyngDroplet;
@@ -74,6 +75,8 @@ function setup() {
         scenarioPositionX2,
         scenarioPositionY
     );
+
+    score = new Score();
 
     const characterWidth = 220;
     const characterHeight = 270;
@@ -224,6 +227,7 @@ function draw() {
     background(255);
 
     scenario.draw();
+    score.draw();
 
     foes.forEach(foe => {
         foe.move();
@@ -246,5 +250,7 @@ function draw() {
 
         gameOver = true;
         noLoop();
-    }
+        return;
+    } 
+    score.increase(0.1);
 }
