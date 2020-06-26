@@ -34,9 +34,7 @@ let foes;
 let currentFoes;
 let currentFoesStartIndex;
 
-let gameStart;
-let gameOver;
-let paused;
+let game;
 
 function preload() {
 
@@ -64,7 +62,7 @@ function preload() {
     soundtrack = loadSound('assets/sounds/soundtrack.mp3');
     jumpSound = loadSound('assets/sounds/jump.mp3');
 
-    gameStart = false;
+    game = new Game();
 }
 
 function setup() {
@@ -223,45 +221,43 @@ function setup() {
 
     soundtrack.setVolume(0.1);
 
-    gameOver = false;
-    paused = false;
-
     currentFoes = [];
     currentFoesStartIndex = 0;
 }
 
 function keyPressed() {
 
-    if (!gameOver && !paused && gameStart && keyCode == UP_ARROW) {
+    if (keyCode == UP_ARROW && !game.isOver() && !game.isPaused() && game.isStarted()) {
         if (character.canJump()) {
             character.jump()
             jumpSound.play();
         }
     }
 
-    if (gameStart && keyCode == RETURN && gameOver) {
+    if (keyCode == RETURN && game.isStarted() && game.isOver()) {
         setup();
         soundtrack.play();
+        game.restart();
         loop();
         return;
     }
 
-    if (gameStart && keyCode == RETURN && !paused) {
-        paused = true;
+    if (keyCode == RETURN && game.isStarted() && !game.isPaused()) {
+        game.pause()
         character.coordinates.jumpingCount = 0;
         soundtrack.pause();
         return;
     }
 
-    if (gameStart && keyCode == RETURN && paused) {
-        paused = false;
+    if (keyCode == RETURN && game.isStarted() && game.isPaused()) {
+        game.resume();
         soundtrack.play();
         loop();
         return;
     }
 
-    if (!gameStart && keyCode == RETURN) {
-        gameStart = true;
+    if (keyCode == RETURN && !game.isStarted()) {
+        game.start();
         setup();
         soundtrack.loop();
         loop();
@@ -282,7 +278,7 @@ function draw() {
         }
     }
 
-    if (!gameStart) {
+    if (!game.isStarted()) {
         
         image(homeScreenImage, 0, 0, width, height);
 
@@ -301,7 +297,7 @@ function draw() {
         return;
     }
 
-    if (paused) {
+    if (game.isPaused()) {
 
         fill(255, 0, 0);
         textSize(50);
@@ -343,7 +339,7 @@ function draw() {
 
         image(gameOverImage, (width - gameOverImage.width) * 0.5 , (height - gameOverImage.height) * 0.3);
 
-        gameOver = true;
+        game.over();
         soundtrack.stop();
         noLoop();
         return;
