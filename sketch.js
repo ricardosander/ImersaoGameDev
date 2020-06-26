@@ -13,6 +13,7 @@ let characterImage;
 let dropletsImage;
 let flyingDropletImage;
 let trollImage;
+let heatImage;
 
 let gameOverImage;
 let homeScreenImage;
@@ -26,10 +27,12 @@ let character;
 let droplet;
 let flyngDroplet;
 let troll;
-let foes;
 
-let currentFoesStartIndex;
+let heart;
+
+let foes;
 let currentFoes;
+let currentFoesStartIndex;
 
 let gameStart;
 let gameOver;
@@ -52,6 +55,8 @@ function preload() {
     dropletImage = loadImage('assets/images/foes/droplet.png');
     flyingDropletImage = loadImage('assets/images/foes/flying_droplet.png');
     trollImage = loadImage('assets/images/foes/troll.png');
+    
+    heartImage = loadImage('assets/images/assets/heart.png');
 
     gameOverImage = loadImage('assets/images/assets/game-over.png');
     homeScreenImage = loadImage('assets/images/assets/homescreen.png');
@@ -192,6 +197,24 @@ function setup() {
         ),
     );
 
+    heart = new NoPlaybleCharacter(
+        new SpriteMap(
+            heartImage,
+            200,
+            167,
+            200,
+            167
+        ),
+        new Coordinates(
+            1.2 * width,
+            defaultDeltaY + 400,
+            100,
+            80,
+            1,
+            1
+        ),
+    );
+
     foes = [
         droplet, 
         flyngDroplet, 
@@ -249,7 +272,7 @@ function keyPressed() {
 function draw() {
 
     if (currentFoes.length == 0) {
-        foes.slice(currentFoesStartIndex, currentFoesStartIndex+1).forEach(foe => {
+        foes.slice(currentFoesStartIndex, currentFoesStartIndex + 1).forEach(foe => {
             foe.restart();
             currentFoes.push(foe);
         });
@@ -308,6 +331,9 @@ function draw() {
     character.applyGravity();
     character.draw();
 
+    heart.draw();
+    heart.move();
+
     if (currentFoes.filter(foe => character.isColliding(foe)).length > 0) {
         soundtrack.stop();
 
@@ -322,5 +348,12 @@ function draw() {
         noLoop();
         return;
     } 
+
+    if (character.isColliding(heart)) {
+        score.increase(25);    
+        heart.coordinates.positionX = width * 2;
+        jumpSound.play();
+    }
+
     score.increase(0.1);
 }
