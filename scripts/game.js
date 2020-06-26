@@ -1,30 +1,29 @@
 class Game {
 
-    constructor(soundtrack, jumpSound, scenario, character, foes) {
-        this.status = new Status();
+    constructor(characterFactory, soundtrack, jumpSound, scenario) {
+        this.characterFactory = characterFactory;
         this.scenario = scenario;
-        this.score = new Score();
-        this.character = character;
-        this.foes = foes;
         this.soundtrack = soundtrack;
         this.jumpSound = jumpSound;
+        
+        this.status = new Status();
+        this.score = new Score();
+        
         this.currentFoes = [];
         this.currentFoesStartIndex = 0;
     }
 
-    setup(scenario, character, foes, heart) {
+    setup(scenario) {
 
         this.scenario = scenario;
-        this.character = character;
-        this.heart = heart;
-        this.foes = foes;
+        this.character = this.characterFactory.createPlaybleCharacter();
+        this.heart = this.characterFactory.createHeart();
+        this.foes = this.characterFactory.createFoes();
+
         this.currentFoes = [];
         this.currentFoesStartIndex = 0;
         
         this.soundtrack.setVolume(0.1);
-
-        this.currentFoes = [];
-        this.currentFoesStartIndex = 0;
     }
 
     keyPressed(keyCode) {
