@@ -25,6 +25,8 @@ class Game {
         this.heart = this.characterRepository.createHeart();
         this.foes = this.characterRepository.createFoes();
 
+        this.score.restart();
+
         this.currentFoes = [];
         this.currentFoesStartIndex = 0;
 
@@ -41,7 +43,7 @@ class Game {
         }
 
         if ((keyCode == RETURN || keyCode == UP_ARROW) && this.status.isStarted() && this.status.isOver()) {
-            setup();
+            this.setup();
             this.soundtrack.play();
             this.status.restart();
             loop();
@@ -64,7 +66,7 @@ class Game {
 
         if ((keyCode == RETURN || keyCode == UP_ARROW) && !this.status.isStarted()) {
             this.status.start();
-            setup();
+            this.setup();
             this.soundtrack.loop();
             loop();
         }

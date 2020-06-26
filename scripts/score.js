@@ -4,6 +4,10 @@ class Score {
         this.score = 0;
     }
 
+    restart() {
+        this.score = 0;
+    }
+
     increase(score) {
         this.score += score;
     }
