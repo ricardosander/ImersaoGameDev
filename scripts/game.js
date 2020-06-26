@@ -1,12 +1,13 @@
 class Game {
 
-    constructor(characterFactory, scenarioFactory, soundtrack, jumpSound) {
+    constructor(characterFactory, scenarioFactory, soundFactory) {
         
         this.characterFactory = characterFactory;
         this.scenarioFactory = scenarioFactory;
+        this.soundFactory = soundFactory;
 
-        this.soundtrack = soundtrack;
-        this.jumpSound = jumpSound;
+        this.soundtrack = soundFactory.getSoundtrack();
+        this.jumpSound = soundFactory.getJumpSound();
         
         this.status = new Status();
         this.score = new Score();

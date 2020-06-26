@@ -43,12 +43,13 @@ function preload() {
     gameOverImage = loadImage('assets/images/assets/game-over.png');
     homeScreenImage = loadImage('assets/images/assets/homescreen.png');
 
-    const soundtrack = loadSound('assets/sounds/soundtrack.mp3');
-    const jumpSound = loadSound('assets/sounds/jump.mp3');
-
     const characterFactory = new CharacterFactory();
     const scenarioFactory = new ScenarioFactory();
-    game = new Game(characterFactory, scenarioFactory, soundtrack, jumpSound);
+
+    const soundFactory = new SoundFactory();
+    soundFactory.preload();
+
+    game = new Game(characterFactory, scenarioFactory, soundFactory);
 }
 
 function setup() {
