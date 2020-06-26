@@ -1,4 +1,4 @@
-class SoundFactory {
+class SoundRepository {
 
     preload() {
         this.soundtrack = loadSound('assets/sounds/soundtrack.mp3');

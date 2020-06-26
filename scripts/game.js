@@ -1,15 +1,15 @@
 class Game {
 
-    constructor(imageFactory, soundFactory) {
+    constructor(imageRepository, soundRepository) {
         
-        this.imageFactory = imageFactory;
-        this.soundFactory = soundFactory;
+        this.imageRepository = imageRepository;
+        this.soundRepository = soundRepository;
 
-        this.characterFactory = new CharacterFactory(this.imageFactory);
-        this.scenarioFactory = new ScenarioFactory(this.imageFactory);
+        this.characterRepository = new CharacterRepository(this.imageRepository);
+        this.scenarioRepository = new ScenarioRepository(this.imageRepository);
 
-        this.soundtrack = soundFactory.getSoundtrack();
-        this.jumpSound = soundFactory.getJumpSound();
+        this.soundtrack = this.soundRepository.getSoundtrack();
+        this.jumpSound = this.soundRepository.getJumpSound();
         
         this.status = new Status();
         this.score = new Score();
@@ -20,10 +20,10 @@ class Game {
 
     setup() {
 
-        this.scenario = this.scenarioFactory.createScenario();
-        this.character = this.characterFactory.createPlaybleCharacter();
-        this.heart = this.characterFactory.createHeart();
-        this.foes = this.characterFactory.createFoes();
+        this.scenario = this.scenarioRepository.createScenario();
+        this.character = this.characterRepository.createPlaybleCharacter();
+        this.heart = this.characterRepository.createHeart();
+        this.foes = this.characterRepository.createFoes();
 
         this.currentFoes = [];
         this.currentFoesStartIndex = 0;
@@ -85,7 +85,7 @@ class Game {
 
     if (!this.status.isStarted()) {
         
-        image(this.imageFactory.homeScreenImage, 0, 0, width, height);
+        image(this.imageRepository.homeScreenImage, 0, 0, width, height);
 
         fill(0);
         textSize(50);
@@ -143,9 +143,9 @@ class Game {
         text('Pressione ENTER para tentar novamente.', width * 0.7, height * 0.5);
 
         image(
-            this.imageFactory.gameOverImage, 
-            (width - this.imageFactory.gameOverImage.width) * 0.5 , 
-            (height - this.imageFactory.gameOverImage.height) * 0.3
+            this.imageRepository.gameOverImage, 
+            (width - this.imageRepository.gameOverImage.width) * 0.5 , 
+            (height - this.imageRepository.gameOverImage.height) * 0.3
         );
 
         this.status.over();

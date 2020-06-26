@@ -2,13 +2,13 @@ let game;
 
 function preload() {
 
-    const imageFactory = new ImageFactory();
-    imageFactory.preload();
+    const imageRepository = new ImageRepository();
+    imageRepository.preload();
 
-    const soundFactory = new SoundFactory();
-    soundFactory.preload();
+    const soundRepository = new SoundRepository();
+    soundRepository.preload();
 
-    game = new Game(imageFactory, soundFactory);
+    game = new Game(imageRepository, soundRepository);
 }
 
 function setup() {

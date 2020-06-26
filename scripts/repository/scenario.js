@@ -1,7 +1,7 @@
-class ScenarioFactory {
+class ScenarioRepository {
     
-    constructor(imageFactory) {
-        this.imageFactory = imageFactory;
+    constructor(imageRepository) {
+        this.imageRepository = imageRepository;
     }
 
     createScenario() {
@@ -22,15 +22,15 @@ class ScenarioFactory {
 
         return new Scenario(
             [
-                this.imageFactory.skyImage, 
-                this.imageFactory.forestImage5, 
-                this.imageFactory.forestImage4, 
-                this.imageFactory.forestImage3, 
-                this.imageFactory.forestImage2, 
-                this.imageFactory.particlesImage2, 
-                this.imageFactory.forestImage1, 
-                this.imageFactory.particlesImage1, 
-                this.imageFactory.mistImage
+                this.imageRepository.skyImage, 
+                this.imageRepository.forestImage5, 
+                this.imageRepository.forestImage4, 
+                this.imageRepository.forestImage3, 
+                this.imageRepository.forestImage2, 
+                this.imageRepository.particlesImage2, 
+                this.imageRepository.forestImage1, 
+                this.imageRepository.particlesImage1, 
+                this.imageRepository.mistImage
             ],
             [skySpeed, forest5Speed, forest4Speed, forest3Speed, forest2Speed, particles2Speed, forest1Speed, particles1Speed, mistSpeed],
             scenarioPositionX1,

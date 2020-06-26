@@ -1,7 +1,7 @@
-class CharacterFactory {
+class CharacterRepository {
 
-    constructor(imageFactory) {
-        this.imageFactory = imageFactory;
+    constructor(imageRepository) {
+        this.imageRepository = imageRepository;
         this.defaultDeltaY = 100;
     }
 
@@ -16,11 +16,11 @@ class CharacterFactory {
 
         const character = new PlaybleCharacter(
             new SpriteMap(
-                this.imageFactory.characterImage,
+                this.imageRepository.characterImage,
                 characterSpriteWidth,
                 characterSpriteHeight,
-                this.imageFactory.characterImage.width,
-                this.imageFactory.characterImage.height,
+                this.imageRepository.characterImage.width,
+                this.imageRepository.characterImage.height,
             ),
             new Coordinates(
                 characterStartX,
@@ -48,7 +48,7 @@ class CharacterFactory {
 
         return new NoPlaybleCharacter(
             new SpriteMap(
-                this.imageFactory.heartImage,
+                this.imageRepository.heartImage,
                 200,
                 167,
                 200,
@@ -76,11 +76,11 @@ class CharacterFactory {
 
         return new NoPlaybleCharacter(
             new SpriteMap(
-                this.imageFactory.dropletImage,
+                this.imageRepository.dropletImage,
                 dropletSpriteWidth,
                 dropletSpriteHeight,
-                this.imageFactory.dropletImage.width,
-                this.imageFactory.dropletImage.height
+                this.imageRepository.dropletImage.width,
+                this.imageRepository.dropletImage.height
             ),
             new Coordinates(
                 dropletStartX,
@@ -106,7 +106,7 @@ class CharacterFactory {
 
         return new NoPlaybleCharacter(
             new SpriteMap(
-                this.imageFactory.flyingDropletImage,
+                this.imageRepository.flyingDropletImage,
                 flyingDropletSpriteWidth,
                 flyingDropletSpriteHeight,
                 flyingDropletLastSpriteX,
@@ -134,7 +134,7 @@ class CharacterFactory {
 
         return new NoPlaybleCharacter(
             new SpriteMap(
-                this.imageFactory.trollImage,
+                this.imageRepository.trollImage,
                 trollWidth,
                 trollHeight,
                 trollLastSpriteX,

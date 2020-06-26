@@ -1,4 +1,4 @@
-class ImageFactory {
+class ImageRepository {
 
     preload() {
 
