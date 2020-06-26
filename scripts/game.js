@@ -1,8 +1,10 @@
 class Game {
 
-    constructor(characterFactory, soundtrack, jumpSound, scenario) {
+    constructor(characterFactory, scenarioFactory, soundtrack, jumpSound) {
+        
         this.characterFactory = characterFactory;
-        this.scenario = scenario;
+        this.scenarioFactory = scenarioFactory;
+
         this.soundtrack = soundtrack;
         this.jumpSound = jumpSound;
         
@@ -13,9 +15,9 @@ class Game {
         this.currentFoesStartIndex = 0;
     }
 
-    setup(scenario) {
+    setup() {
 
-        this.scenario = scenario;
+        this.scenario = this.scenarioFactory.createScenario();
         this.character = this.characterFactory.createPlaybleCharacter();
         this.heart = this.characterFactory.createHeart();
         this.foes = this.characterFactory.createFoes();
