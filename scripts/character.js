@@ -7,7 +7,7 @@ class Character {
     }
 
     draw() {
-        console.log(this);
+        
         image(
             this.frame.image,
             this.coordinates.positionX,

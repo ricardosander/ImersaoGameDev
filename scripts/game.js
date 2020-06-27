@@ -17,7 +17,7 @@ class Game {
         this.currentFoes = [];
         this.currentFoesStartIndex = 0;
 
-        this.playbleCharacter = Math.round(Math.random());
+        this.playbleCharacter = Math.floor(random(0, 2))
     }
 
     setup() {
@@ -41,6 +41,8 @@ class Game {
 
         this.currentFoes = [];
         this.currentFoesStartIndex = 0;
+        this.foeSpeed = 0;
+        this.heartSpeed = 20;
 
         this.soundtrack.setVolume(0.1);
     }
@@ -87,14 +89,14 @@ class Game {
     draw() {
 
         if (this.currentFoes.length == 0) {
+
+            this.foeSpeed = random(10, 40);
+            this.currentFoesStartIndex = Math.floor(random(0, 3));
+
             this.foes.slice(this.currentFoesStartIndex, this.currentFoesStartIndex + 1).forEach(foe => {
                 foe.restart();
                 this.currentFoes.push(foe);
             });
-            this.currentFoesStartIndex++;
-            if (this.currentFoesStartIndex >= this.foes.length) {
-                this.currentFoesStartIndex = 0;
-            }
         }
 
         if (!this.status.isStarted()) {
@@ -136,7 +138,7 @@ class Game {
         this.score.draw();
 
         this.currentFoes.forEach((foe, index) => {
-            foe.move();
+            foe.move(this.foeSpeed);
             foe.draw();
             if (foe.isGone()) {
                 this.currentFoes.splice(index, 1);
@@ -147,7 +149,7 @@ class Game {
         this.character.draw();
 
         this.heart.draw();
-        this.heart.move();
+        this.heart.move(this.heartSpeed);
 
         if (this.currentFoes.filter(foe => this.character.isColliding(foe)).length > 0) {
             this.soundtrack.stop();
@@ -175,7 +177,8 @@ class Game {
         }
 
         if (this.heart.isGone()) {
-            this.heart.coordinates.positionX = width * 3;
+            this.heart.coordinates.positionX = width * Math.floor(random(3, 10));
+            this.heartSpeed = Math.floor(random(5, 50));
         }
 
         this.score.increase(0.1);

@@ -4,8 +4,8 @@ class NoPlaybleCharacter extends Character {
         super(frame, coordinates, spriteMap);
     }
 
-    move() {
-        this.coordinates.move(-20)
+    move(speed) {
+        this.coordinates.move(-speed)
     }
 
     isGone() {
