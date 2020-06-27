@@ -27,11 +27,11 @@ class Game {
         switch (this.playbleCharacter) {
 
             case 1:
-                this.character = this.characterRepository.createTest();
+                this.character = this.characterRepository.createKnight();
                 break;
 
             default: 
-                this.character = this.characterRepository.createPlaybleCharacter();
+                this.character = this.characterRepository.createHipsta();
                 break;
         }
         this.heart = this.characterRepository.createHeart();

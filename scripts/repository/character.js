@@ -6,7 +6,7 @@ class CharacterRepository {
         this.defaultDeltaY = 100;
     }
 
-    createPlaybleCharacter() {
+    createHipsta() {
 
         const characterWidth = 220;
         const characterHeight = 270;
@@ -37,7 +37,7 @@ class CharacterRepository {
         return character;
     }
 
-    createTest() {
+    createKnight() {
 
         const characterWidth = 220;
         const characterHeight = 270;
