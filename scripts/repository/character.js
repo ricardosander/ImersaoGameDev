@@ -2,6 +2,7 @@ class CharacterRepository {
 
     constructor(imageRepository) {
         this.imageRepository = imageRepository;
+        this.animationRepository = new AnimationRepository();
         this.defaultDeltaY = 100;
     }
 
@@ -15,7 +16,7 @@ class CharacterRepository {
         const characterDeltaY = this.defaultDeltaY;
 
         const character = new PlaybleCharacter(
-            new SpriteMap(
+            new Frame(
                 this.imageRepository.characterImage,
                 characterSpriteWidth,
                 characterSpriteHeight,
@@ -30,7 +31,34 @@ class CharacterRepository {
                 1.11,
                 0.9
             ),
+            this.animationRepository.getSimpleImageAnimation()
+        );
 
+        return character;
+    }
+
+    createTest() {
+
+        const characterWidth = 220;
+        const characterHeight = 270;
+        const characterStartX = 50;
+        const characterDeltaY = this.defaultDeltaY;
+
+        const character = new PlaybleCharacter(
+            new Frame(
+                this.imageRepository.test['run'],
+                this.imageRepository.test['run'][0].width,
+                this.imageRepository.test['run'][0].height
+            ),
+            new Coordinates(
+                characterStartX,
+                characterDeltaY,
+                characterWidth,
+                characterHeight,
+                1.11,
+                0.9
+            ),
+            this.animationRepository.getMultipleImagesAnimation()
         );
 
         return character;
@@ -47,10 +75,8 @@ class CharacterRepository {
     createHeart() {
 
         return new NoPlaybleCharacter(
-            new SpriteMap(
+            new Frame(
                 this.imageRepository.heartImage,
-                200,
-                167,
                 200,
                 167
             ),
@@ -61,7 +87,8 @@ class CharacterRepository {
                 80,
                 1,
                 1
-            )
+            ),
+            this.animationRepository.getSimpleImageAnimation()
         );
     }
 
@@ -75,12 +102,10 @@ class CharacterRepository {
         const dropletDeltaY = this.defaultDeltaY;
 
         return new NoPlaybleCharacter(
-            new SpriteMap(
+            new Frame(
                 this.imageRepository.dropletImage,
                 dropletSpriteWidth,
-                dropletSpriteHeight,
-                this.imageRepository.dropletImage.width,
-                this.imageRepository.dropletImage.height
+                dropletSpriteHeight
             ),
             new Coordinates(
                 dropletStartX,
@@ -90,6 +115,7 @@ class CharacterRepository {
                 1.03,
                 0.7
             ),
+            this.animationRepository.getSimpleImageAnimation()
         );
     }
 
@@ -105,7 +131,7 @@ class CharacterRepository {
         const flyingDropletDeltaY = this.defaultDeltaY + 150;
 
         return new NoPlaybleCharacter(
-            new SpriteMap(
+            new Frame(
                 this.imageRepository.flyingDropletImage,
                 flyingDropletSpriteWidth,
                 flyingDropletSpriteHeight,
@@ -120,6 +146,7 @@ class CharacterRepository {
                 1.05,
                 0.6
             ),
+            this.animationRepository.getSimpleImageAnimation()
         );
     }
 
@@ -133,7 +160,7 @@ class CharacterRepository {
         const trollDeltaY = this.defaultDeltaY - 50;
 
         return new NoPlaybleCharacter(
-            new SpriteMap(
+            new Frame(
                 this.imageRepository.trollImage,
                 trollWidth,
                 trollHeight,
@@ -148,6 +175,7 @@ class CharacterRepository {
                 1.10,
                 0.7
             ),
+            this.animationRepository.getSimpleImageAnimation()
         );
     }
 }

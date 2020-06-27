@@ -16,12 +16,24 @@ class Game {
 
         this.currentFoes = [];
         this.currentFoesStartIndex = 0;
+
+        this.playbleCharacter = Math.round(Math.random());
     }
 
     setup() {
 
         this.scenario = this.scenarioRepository.createScenario();
-        this.character = this.characterRepository.createPlaybleCharacter();
+
+        switch (this.playbleCharacter) {
+
+            case 1:
+                this.character = this.characterRepository.createTest();
+                break;
+
+            default: 
+                this.character = this.characterRepository.createPlaybleCharacter();
+                break;
+        }
         this.heart = this.characterRepository.createHeart();
         this.foes = this.characterRepository.createFoes();
 
@@ -64,13 +76,12 @@ class Game {
             return;
         }
 
-        if ((keyCode == RETURN || keyCode == UP_ARROW) && !this.status.isStarted()) {
+        if ((keyCode == UP_ARROW || keyCode == RETURN) && !this.status.isStarted()) {
             this.status.start();
             this.setup();
             this.soundtrack.loop();
             loop();
         }
-
     }
 
     draw() {

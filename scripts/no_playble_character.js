@@ -1,7 +1,7 @@
 class NoPlaybleCharacter extends Character {
 
-    constructor(spriteMap, coordinates) {
-        super(spriteMap, coordinates);
+    constructor(frame, coordinates, spriteMap) {
+        super(frame, coordinates, spriteMap);
     }
 
     move() {

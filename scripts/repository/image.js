@@ -14,6 +14,34 @@ class ImageRepository {
         this.skyImage = loadImage('assets/images/set/parallax/10_Sky.png');
 
         this.characterImage = loadImage('assets/images/character/running.png');
+
+        const names = [
+            'attack',
+            'dead',
+            'idle',
+            'jump',
+            'jump_attack',
+            'run',
+            'walk'
+        ];
+
+        this.test = [];
+
+        names.forEach((name, index) => {
+            this.test[name] = [];
+            this.test[name].push(loadImage('assets/images/character/knight/' + name + '/character1.png'));
+            this.test[name].push(loadImage('assets/images/character/knight/' + name + '/character2.png'));
+            this.test[name].push(loadImage('assets/images/character/knight/' + name + '/character3.png'));
+            this.test[name].push(loadImage('assets/images/character/knight/' + name + '/character4.png'));
+            this.test[name].push(loadImage('assets/images/character/knight/' + name + '/character5.png'));
+            this.test[name].push(loadImage('assets/images/character/knight/' + name + '/character6.png'));
+            this.test[name].push(loadImage('assets/images/character/knight/' + name + '/character7.png'));
+            this.test[name].push(loadImage('assets/images/character/knight/' + name + '/character8.png'));
+            this.test[name].push(loadImage('assets/images/character/knight/' + name + '/character9.png'));
+            this.test[name].push(loadImage('assets/images/character/knight/' + name + '/character10.png'));
+        });
+
+
         this.dropletImage = loadImage('assets/images/foes/droplet.png');
         this.flyingDropletImage = loadImage('assets/images/foes/flying_droplet.png');
         this.trollImage = loadImage('assets/images/foes/troll.png');
