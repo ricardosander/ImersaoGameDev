@@ -17,7 +17,7 @@ class Game {
         this.currentFoes = [];
         this.currentFoesStartIndex = 0;
 
-        this.playbleCharacter = Math.floor(random(0, 2))
+        this.playbleCharacter = Math.floor(random(0, 16))
     }
 
     setup() {
@@ -27,13 +27,70 @@ class Game {
         switch (this.playbleCharacter) {
 
             case 1:
+                this.character = this.characterRepository.createBoy();
+                break;
+
+            case 2:
+                this.character = this.characterRepository.createCat();
+                break;
+
+            case 3:
+                this.character = this.characterRepository.createCowboy();
+                break;
+            
+            case 4:
+                this.character = this.characterRepository.createCowgirl();
+                break;
+
+            case 5:
+                this.character = this.characterRepository.createDino();
+                break;
+
+            case 6:
+                this.character = this.characterRepository.createDog();
+                break;
+
+            case 7:
+                this.character = this.characterRepository.createGirl();
+                break;
+
+            case 8:
+                this.character = this.characterRepository.createJack();
+                break;
+
+            case 9:
                 this.character = this.characterRepository.createKnight();
+                break;
+
+            case 10:
+                this.character = this.characterRepository.createNinjaBoy();
+                break;
+
+            case 11:
+                this.character = this.characterRepository.createNinjaGirl();
+                break;
+
+            case 12:
+                this.character = this.characterRepository.createRobot();
+                break;
+
+            case 13:
+                this.character = this.characterRepository.createSanta();
+                break;
+
+            case 14:
+                this.character = this.characterRepository.createZombieBoy();
+                break;
+
+            case 15:
+                this.character = this.characterRepository.createZombieGirl();
                 break;
 
             default: 
                 this.character = this.characterRepository.createHipsta();
                 break;
         }
+
         this.heart = this.characterRepository.createHeart();
         this.foes = this.characterRepository.createFoes();
 

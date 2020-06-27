@@ -15,31 +15,65 @@ class ImageRepository {
 
         this.characterImage = loadImage('assets/images/character/running.png');
 
-        const names = [
-            'attack',
-            'dead',
-            'idle',
-            'jump',
-            'jump_attack',
-            'run',
-            'walk'
-        ];
+        this.knight = [];
+        this.knight['run'] = [];
+        this.load(this.knight, 'knight', 10);
 
-        this.test = [];
+        this.boy = [];
+        this.boy['run'] = [];
+        this.load(this.boy, 'boy', 15);
 
-        names.forEach((name, index) => {
-            this.test[name] = [];
-            this.test[name].push(loadImage('assets/images/character/knight/' + name + '/character1.png'));
-            this.test[name].push(loadImage('assets/images/character/knight/' + name + '/character2.png'));
-            this.test[name].push(loadImage('assets/images/character/knight/' + name + '/character3.png'));
-            this.test[name].push(loadImage('assets/images/character/knight/' + name + '/character4.png'));
-            this.test[name].push(loadImage('assets/images/character/knight/' + name + '/character5.png'));
-            this.test[name].push(loadImage('assets/images/character/knight/' + name + '/character6.png'));
-            this.test[name].push(loadImage('assets/images/character/knight/' + name + '/character7.png'));
-            this.test[name].push(loadImage('assets/images/character/knight/' + name + '/character8.png'));
-            this.test[name].push(loadImage('assets/images/character/knight/' + name + '/character9.png'));
-            this.test[name].push(loadImage('assets/images/character/knight/' + name + '/character10.png'));
-        });
+        this.cat = [];
+        this.cat['run'] = [];
+        this.load(this.cat, 'cat', 8);
+
+        this.cowboy = [];
+        this.cowboy['run'] = [];
+        this.load(this.cowboy, 'cowboy', 10);
+
+        this.cowgirl = [];
+        this.cowgirl['run'] = [];
+        this.load(this.cowgirl, 'cowgirl', 8);
+
+        this.dino = [];
+        this.dino['run'] = [];
+        this.load(this.dino, 'dino', 8);
+
+        this.dog = [];
+        this.dog['run'] = [];
+        this.load(this.dog, 'dog', 8);
+
+        this.girl = [];
+        this.girl['run'] = [];
+        this.load(this.girl, 'girl', 20);
+
+        this.jack = [];
+        this.jack['run'] = [];
+        this.load(this.jack, 'jack', 8);
+
+        this.ninjaBoy = [];
+        this.ninjaBoy['run'] = [];
+        this.load(this.ninjaBoy, 'ninjaboy', 10);
+
+        this.ninjaGirl = [];
+        this.ninjaGirl['run'] = [];
+        this.load(this.ninjaGirl, 'ninjagirl', 10);
+
+        this.robot = [];
+        this.robot['run'] = [];
+        this.load(this.robot, 'robot', 8);
+
+        this.santa = [];
+        this.santa['run'] = [];
+        this.load(this.santa, 'santa', 11);
+
+        this.zombieBoy = [];
+        this.zombieBoy['run'] = [];
+        this.load(this.zombieBoy, 'zombieboy', 10);
+
+        this.zombieGirl = [];
+        this.zombieGirl['run'] = [];
+        this.load(this.zombieGirl, 'zombiegirl', 10);
 
 
         this.dropletImage = loadImage('assets/images/foes/droplet.png');
@@ -50,6 +84,12 @@ class ImageRepository {
 
         this.gameOverImage = loadImage('assets/images/assets/game-over.png');
         this.homeScreenImage = loadImage('assets/images/assets/homescreen.png');
+    }
+
+    load(array, characterName, sprites) {
+        for (var i = 1; i < sprites + 1; i++) {
+            array['run'].push(loadImage('assets/images/character/' + characterName + '/run/character' + i + '.png'));
+        }
     }
 
 }
