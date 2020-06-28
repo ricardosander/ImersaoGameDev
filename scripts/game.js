@@ -1,9 +1,11 @@
 class Game {
 
-    constructor(imageRepository, soundRepository) {
+    constructor(imageRepository, soundRepository, gameOver, pauseGame) {
 
         this.imageRepository = imageRepository;
         this.soundRepository = soundRepository;
+        this.gameOver = gameOver;
+        this.pauseGame = pauseGame;
 
         this.characterRepository = new CharacterRepository(this.imageRepository);
         this.scenarioRepository = new ScenarioRepository(this.imageRepository);
@@ -18,79 +20,22 @@ class Game {
         this.currentFoesStartIndex = 0;
 
         this.playbleCharacter = Math.floor(random(0, 16))
+
+        this.running = false;
     }
 
-    setup() {
+    setup(selectCharacter) {
 
-        this.scenario = this.scenarioRepository.createScenario();
-
-        switch (this.playbleCharacter) {
-
-            case 1:
-                this.character = this.characterRepository.createBoy();
-                break;
-
-            case 2:
-                this.character = this.characterRepository.createCat();
-                break;
-
-            case 3:
-                this.character = this.characterRepository.createCowboy();
-                break;
-            
-            case 4:
-                this.character = this.characterRepository.createCowgirl();
-                break;
-
-            case 5:
-                this.character = this.characterRepository.createDino();
-                break;
-
-            case 6:
-                this.character = this.characterRepository.createDog();
-                break;
-
-            case 7:
-                this.character = this.characterRepository.createGirl();
-                break;
-
-            case 8:
-                this.character = this.characterRepository.createJack();
-                break;
-
-            case 9:
-                this.character = this.characterRepository.createKnight();
-                break;
-
-            case 10:
-                this.character = this.characterRepository.createNinjaBoy();
-                break;
-
-            case 11:
-                this.character = this.characterRepository.createNinjaGirl();
-                break;
-
-            case 12:
-                this.character = this.characterRepository.createRobot();
-                break;
-
-            case 13:
-                this.character = this.characterRepository.createSanta();
-                break;
-
-            case 14:
-                this.character = this.characterRepository.createZombieBoy();
-                break;
-
-            case 15:
-                this.character = this.characterRepository.createZombieGirl();
-                break;
-
-            default: 
-                this.character = this.characterRepository.createHipsta();
-                break;
+        if (this.running) {
+            this.soundtrack.play();
+            loop();
+            return;
         }
 
+        this.selectCharacter = selectCharacter;
+
+        this.scenario = this.scenarioRepository.createScenario();
+        this.character = this.characterRepository.createPlaybleCharacter(this.selectCharacter);
         this.heart = this.characterRepository.createHeart();
         this.foes = this.characterRepository.createFoes();
 
@@ -102,45 +47,28 @@ class Game {
         this.heartSpeed = 20;
 
         this.soundtrack.setVolume(0.1);
+        
+        this.status.start();
+        this.soundtrack.loop();
+
+        this.running = true;
+        loop();
     }
 
     keyPressed(keyCode) {
 
-        if (keyCode == UP_ARROW && !this.status.isOver() && !this.status.isPaused() && this.status.isStarted()) {
+        if (keyCode == 'ArrowUp' || keyCode == 'Touch') {
             if (this.character.canJump()) {
                 this.character.jump()
                 this.jumpSound.play();
             }
         }
 
-        if ((keyCode == RETURN || keyCode == UP_ARROW) && this.status.isStarted() && this.status.isOver()) {
-            this.setup();
-            this.soundtrack.play();
-            this.status.restart();
-            loop();
-            return;
+        if (keyCode == 'Enter') {
+            return this.pauseGame;
         }
 
-        if (keyCode == RETURN && this.status.isStarted() && !this.status.isPaused()) {
-            this.status.pause()
-            this.character.coordinates.jumpingCount = 0;
-            this.soundtrack.pause();
-            return;
-        }
-
-        if (keyCode == RETURN && this.status.isStarted() && this.status.isPaused()) {
-            this.status.resume();
-            this.soundtrack.play();
-            loop();
-            return;
-        }
-
-        if ((keyCode == UP_ARROW || keyCode == RETURN) && !this.status.isStarted()) {
-            this.status.start();
-            this.setup();
-            this.soundtrack.loop();
-            loop();
-        }
+        return this;
     }
 
     draw() {
@@ -154,39 +82,6 @@ class Game {
                 foe.restart();
                 this.currentFoes.push(foe);
             });
-        }
-
-        if (!this.status.isStarted()) {
-
-            image(this.imageRepository.homeScreenImage, 0, 0, width, height);
-
-            fill(0);
-            textSize(50);
-            text('AS AVENTURAS DA HIPSTA', width * 0.25, height * 0.2);
-
-            textSize(20);
-            text('Aqui deveria ter uma introdução legal feita por um não backender.', width * 0.25, height * 0.4);
-
-            fill(255);
-            textSize(30);
-            text('Pressione ENTER para começar.', width * 0.29, height * 0.6);
-
-            noLoop();
-            return;
-        }
-
-        if (this.status.isPaused()) {
-
-            fill(255, 0, 0);
-            textSize(50);
-            text('PAUSED', width * 0.5, height * 0.2);
-            noLoop();
-
-            fill(0);
-            textSize(32);
-            text('Pressione ENTER novamente para continuar.', width * 0.6, height * 0.5);
-
-            return;
         }
 
         background(255);
@@ -209,22 +104,8 @@ class Game {
         this.heart.move(this.heartSpeed);
 
         if (this.currentFoes.filter(foe => this.character.isColliding(foe)).length > 0) {
-            this.soundtrack.stop();
-
-            fill(0);
-            textSize(32);
-            text('Pressione ENTER para tentar novamente.', width * 0.7, height * 0.5);
-
-            image(
-                this.imageRepository.gameOverImage,
-                (width - this.imageRepository.gameOverImage.width) * 0.5,
-                (height - this.imageRepository.gameOverImage.height) * 0.3
-            );
-
-            this.status.over();
-            this.soundtrack.stop();
-            noLoop();
-            return;
+            this.running = false;
+            return this.gameOver;
         }
 
         if (this.character.isColliding(this.heart)) {
@@ -239,5 +120,10 @@ class Game {
         }
 
         this.score.increase(0.1);
+        return this
+    }
+
+    clear() {
+
     }
 }

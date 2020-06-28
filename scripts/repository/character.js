@@ -6,6 +6,64 @@ class CharacterRepository {
         this.defaultDeltaY = 100;
     }
 
+    createPlaybleCharacter(name) {
+        
+        switch (name) {
+
+            case 'hipsta': 
+                return this.createHipsta();
+
+            case 'boy':
+                return this.createBoy();
+
+            case 'cat':
+                return this.createCat();
+
+            case 'cowboy':
+                return this.createCowboy();
+            
+            case 'cowgirl':
+                return this.createCowgirl();
+
+            case 'dino':
+                return this.createDino();
+
+            case 'dog':
+                return this.createDog();
+
+            case 'girl':
+                return this.createGirl();
+
+            case 'jack':
+                return this.createJack();
+
+            case 'knight':
+                return this.createKnight();
+
+            case 'ninjaboy':
+                return this.createNinjaBoy();
+
+            case 'ninjagirl':
+                return this.createNinjaGirl();
+
+            case 'robot':
+                return this.createRobot();
+
+            case 'santa':
+                return this.createSanta();
+
+            case 'zombieboy':
+                return this.createZombieBoy();
+
+            case 'zombiegirl':
+                return this.createZombieGirl();
+
+            default:
+                return this.createHipsta();
+                
+        }
+    }
+
     createHipsta() {
 
         const characterWidth = 220;
