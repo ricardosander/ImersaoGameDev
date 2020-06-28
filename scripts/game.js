@@ -22,6 +22,8 @@ class Game {
         this.playbleCharacter = Math.floor(random(0, 16))
 
         this.running = false;
+
+        this.life = new Life(this.imageRepository.heartImage, 5, 3);
     }
 
     setup(selectCharacter) {
@@ -52,6 +54,8 @@ class Game {
         this.soundtrack.loop();
 
         this.running = true;
+        this.life.setup();
+
         loop();
     }
 
@@ -88,6 +92,7 @@ class Game {
 
         this.scenario.draw();
         this.score.draw();
+        this.life.draw();
 
         this.currentFoes.forEach((foe, index) => {
             foe.move(this.foeSpeed);
@@ -104,13 +109,19 @@ class Game {
         this.heart.move(this.heartSpeed);
 
         if (this.currentFoes.filter(foe => this.character.isColliding(foe)).length > 0) {
-            this.running = false;
-            return this.gameOver;
+            this.life.lose();
+            this.jumpSound.play();
+            this.character.makesInvincible();
+            if (!this.life.isAlive()) {
+                this.running = false;
+                return this.gameOver;
+            }
         }
 
         if (this.character.isColliding(this.heart)) {
             this.score.increase(25);
             this.heart.coordinates.positionX = width * 2;
+            this.life.gain();
             this.jumpSound.play();
         }
 

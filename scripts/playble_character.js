@@ -2,6 +2,15 @@ class PlaybleCharacter extends Character {
 
     constructor(frame, coordinates, spriteMap) {
         super(frame, coordinates, spriteMap);
+        this.invincible = false;
+    }
+
+    makesInvincible() {
+        this.invincible = true;
+        setTimeout(
+            () => { this.invincible = false }, 
+            1000
+        );
     }
 
     jump() {
@@ -17,6 +26,6 @@ class PlaybleCharacter extends Character {
     }
 
     isColliding(foe) {
-        return this.coordinates.isColliding(foe.coordinates);
+        return !this.invincible && this.coordinates.isColliding(foe.coordinates);
     }
 }
