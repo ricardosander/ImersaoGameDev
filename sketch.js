@@ -49,29 +49,26 @@ function setup() {
     const gamePause = new GamePause(imageRepository, soundRepository, button2);
     game = new Game(imageRepository, soundRepository, gameOver, gamePause, settings);
 
-    const buttons = [
-        new Button(() => { selectCharacter('hipsta', game) }, screenWidth * 0.1, screenHeight * 0.25, 'Bruxinha Emilly'),
-        new Button(() => { selectCharacter('boy', game) }, screenWidth * 0.4, screenHeight * 0.25, 'Arthur'),
-        new Button(() => { selectCharacter('girl', game) }, screenWidth * 0.7, screenHeight * 0.25, 'Alice'),
+    const buttons = [];
 
-        new Button(() => { selectCharacter('knight', game) }, screenWidth * 0.1, screenHeight * 0.35, 'Cavaleiro Samuel'),
-        new Button(() => { selectCharacter('cowboy', game) }, screenWidth * 0.4, screenHeight * 0.35, 'Nathan Drake'),
-        new Button(() => { selectCharacter('cowgirl', game) }, screenWidth * 0.7, screenHeight * 0.35, 'Lara Croft'),
+    let x = 1;
+    let y = 25;
 
-        new Button(() => { selectCharacter('santa', game) }, screenWidth * 0.1, screenHeight * 0.45, 'Papai Noel'),
-        new Button(() => { selectCharacter('jack', game) }, screenWidth * 0.4, screenHeight * 0.45, 'Jack Lanterna'),
+    const maxX = 7;
+    const maxY = 75;
+
+    settings.pcs.forEach((pc, index) => {
         
-        new Button(() => { selectCharacter('ninjaboy', game) }, screenWidth * 0.4, screenHeight * 0.55, 'Kakashi'),
-        new Button(() => { selectCharacter('ninjagirl', game) }, screenWidth * 0.7, screenHeight * 0.55, 'Sakura'),
-
-        new Button(() => { selectCharacter('dino', game) }, screenWidth * 0.1, screenHeight * 0.65, 'Dino'),
-        new Button(() => { selectCharacter('dog', game) }, screenWidth * 0.4, screenHeight * 0.65, 'Berillo'),
-        new Button(() => { selectCharacter('cat', game) }, screenWidth * 0.7, screenHeight * 0.65, 'Sr. Whiskas'),
-
-        new Button(() => { selectCharacter('robot', game) }, screenWidth * 0.1, screenHeight * 0.75, 'Optimus'),
-        new Button(() => { selectCharacter('zombieboy', game) }, screenWidth * 0.4, screenHeight * 0.75, 'Zumbi Henzo'),
-        new Button(() => { selectCharacter('zombiegirl', game) }, screenWidth * 0.7, screenHeight * 0.75, 'Zumbi Juliana'),
-    ];
+        buttons.push(new Button(() => { selectCharacter(pc.code, game) }, screenWidth * (x / 10), screenHeight * ( y / 100), pc.name));
+        x += 3;
+        if (x > maxX) {
+            x = 1;
+            y += 10;
+        }
+        if (y > maxY) {
+            return;
+        }
+    });
 
     characterSelection = new CharacterSelection(imageRepository, game, buttons);
     homeScreen = new HomeScreen(imageRepository, characterSelection, button1);

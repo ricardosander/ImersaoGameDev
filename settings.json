@@ -4,7 +4,72 @@
         "max": 3,
         "start": 0
     },
-    "pcs": {},
+    "pcs": [
+        {
+            "name" : "Bruxinha Emilly",
+            "code" : "hipsta"
+        },
+        {
+            "name" : "Cavaleiro Samuel",
+            "code" : "knight"
+        },
+        {
+            "name" : "Arthur",
+            "code" : "boy"
+        },
+        {
+            "name" : "Alice",
+            "code" : "girl"
+        },
+        {
+            "name" : "Dino",
+            "code" : "dino"
+        },
+        {
+            "name" : "Sr. Whiskas",
+            "code" : "cat"
+        },
+        {
+            "name" : "Berillo",
+            "code" : "dog"
+        },
+        {
+            "name" : "Zumbiana",
+            "code" : "zombiegirl"
+        },
+        {
+            "name" : "Zumbenzo",
+            "code" : "zombieboy"
+        },
+        {
+            "name" : "Kakashi",
+            "code" : "ninjaboy"
+        },
+        {
+            "name" : "Sakura",
+            "code" : "ninjagirl"
+        },
+        {
+            "name" : "Jack Lanterna",
+            "code" : "jack"
+        },
+        {
+            "name" : "Papai Noel",
+            "code" : "santa"
+        },
+        {
+            "name" : "Lara Croft",
+            "code" : "cowgirl"
+        },
+        {
+            "name" : "Nathan Drake",
+            "code" : "cowboy"
+        },
+        {
+            "name" : "Optimus",
+            "code" : "robot"
+        }
+    ],
     "npcs": {
         "map": [
             [
