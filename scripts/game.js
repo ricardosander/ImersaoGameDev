@@ -119,10 +119,15 @@ class Game {
         }
 
         if (this.character.isColliding(this.heart)) {
-            this.score.increase(25);
             this.heart.coordinates.positionX = width * 2;
-            this.life.gain();
+            
             this.jumpSound.play();
+
+            const lastLifeCount = this.life.current;
+            this.life.gain();
+            if (lastLifeCount == this.life.current) {
+                this.score.increase(50);
+            }
         }
 
         if (this.heart.isGone()) {
