@@ -524,7 +524,8 @@ class CharacterRepository {
                 1,
                 1
             ),
-            this.animationRepository.getSimpleImageAnimation()
+            this.animationRepository.getSimpleImageAnimation(),
+            false
         );
     }
 
@@ -551,7 +552,8 @@ class CharacterRepository {
                 1.03,
                 0.7
             ),
-            this.animationRepository.getSimpleImageAnimation()
+            this.animationRepository.getSimpleImageAnimation(),
+            true
         );
     }
 
@@ -582,7 +584,8 @@ class CharacterRepository {
                 1.05,
                 0.6
             ),
-            this.animationRepository.getSimpleImageAnimation()
+            this.animationRepository.getSimpleImageAnimation(),
+            true
         );
     }
 
@@ -611,7 +614,8 @@ class CharacterRepository {
                 1.10,
                 0.7
             ),
-            this.animationRepository.getSimpleImageAnimation()
+            this.animationRepository.getSimpleImageAnimation(),
+            true
         );
     }
 }

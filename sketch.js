@@ -11,7 +11,12 @@ let currentScene;
 
 let selectedCharacter;
 
+let settings;
+
 function preload() {
+
+    settings = loadJSON("settings.json");
+    console.log(settings);
 
     imageRepository = new ImageRepository();
     imageRepository.preload();
@@ -42,7 +47,7 @@ function setup() {
 
     const gameOver = new GameOver(imageRepository, soundRepository, button2, continuar);
     const gamePause = new GamePause(imageRepository, soundRepository, button2);
-    game = new Game(imageRepository, soundRepository, gameOver, gamePause);
+    game = new Game(imageRepository, soundRepository, gameOver, gamePause, settings);
 
     const buttons = [
         new Button(() => { selectCharacter('hipsta', game) }, screenWidth * 0.1, screenHeight * 0.25, 'Bruxinha Emilly'),
@@ -71,7 +76,7 @@ function setup() {
     characterSelection = new CharacterSelection(imageRepository, game, buttons);
     homeScreen = new HomeScreen(imageRepository, characterSelection, button1);
 
-    currentScene = homeScreen;
+    currentScene = eval(settings.startScene);
 
     currentScene.setup();
 }

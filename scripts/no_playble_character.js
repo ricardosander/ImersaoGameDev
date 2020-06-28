@@ -1,11 +1,17 @@
 class NoPlaybleCharacter extends Character {
 
-    constructor(frame, coordinates, spriteMap) {
+    constructor(frame, coordinates, spriteMap, isEnemy) {
         super(frame, coordinates, spriteMap);
+        this.speed = 0;
+        this.isEnemy = isEnemy;
     }
 
-    move(speed) {
-        this.coordinates.move(-speed)
+    setSpeed(speed) {
+        this.speed = speed;
+    }
+
+    move() {
+        this.coordinates.move(-this.speed)
     }
 
     isGone() {

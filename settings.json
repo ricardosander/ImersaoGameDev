@@ -1,0 +1,72 @@
+{
+    "startScene" : "homeScreen",
+    "life": {
+        "max": 3,
+        "start": 0
+    },
+    "pcs": {},
+    "npcs": {
+        "map": [
+            [
+                {
+                    "index": 1,
+                    "speed": 20
+                }
+            ],
+            [
+                {
+                    "index": 2,
+                    "speed": 20
+                }
+            ],
+            [
+                {
+                    "index": 1,
+                    "speed": 30
+                },
+                {
+                    "index": 2,
+                    "speed": 20
+                }
+            ],
+            [
+                {
+                    "index": 3,
+                    "speed": 20
+                }
+            ],
+            [
+                {
+                    "index": 0,
+                    "speed": 20
+                }
+            ],
+            [
+                {
+                    "index": 1,
+                    "speed": 30
+                },
+                {
+                    "index": 3,
+                    "speed": 20
+                }
+            ],
+            [
+                {
+                    "index": 2,
+                    "speed": 40
+                },
+                {
+                    "index": 3,
+                    "speed": 20
+                }
+            ],
+            [
+                {
+                    "index": 0,
+                    "speed": 40
+                }
+            ]
+        ]
+    }
+}

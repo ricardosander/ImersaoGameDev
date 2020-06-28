@@ -1,6 +1,6 @@
 class Game {
 
-    constructor(imageRepository, soundRepository, gameOver, pauseGame) {
+    constructor(imageRepository, soundRepository, gameOver, pauseGame, settings) {
 
         this.imageRepository = imageRepository;
         this.soundRepository = soundRepository;
@@ -13,17 +13,15 @@ class Game {
         this.soundtrack = this.soundRepository.getSoundtrack();
         this.jumpSound = this.soundRepository.getJumpSound();
 
-        this.status = new Status();
         this.score = new Score();
+        this.life = new Life(this.imageRepository.heartImage, settings.life.max, settings.life.start);
 
-        this.currentFoes = [];
-        this.currentFoesStartIndex = 0;
-
-        this.playbleCharacter = Math.floor(random(0, 16))
+        this.npcMap = settings.npcs.map;
+        this.npcs = [];
+        this.currentNpcs = [];
+        this.currentNpcsIndex = 0;
 
         this.running = false;
-
-        this.life = new Life(this.imageRepository.heartImage, 5, 3);
     }
 
     setup(selectCharacter) {
@@ -38,24 +36,23 @@ class Game {
 
         this.scenario = this.scenarioRepository.createScenario();
         this.character = this.characterRepository.createPlaybleCharacter(this.selectCharacter);
-        this.heart = this.characterRepository.createHeart();
-        this.foes = this.characterRepository.createFoes();
+        
+        const heart = this.characterRepository.createHeart();
+        const foes = this.characterRepository.createFoes();
+
+        this.npcs = [heart];
+        foes.forEach(foe => this.npcs.push(foe));
+        
+        this.currentNpcs = [];
+        this.currentNpcsIndex = 0;
 
         this.score.restart();
-
-        this.currentFoes = [];
-        this.currentFoesStartIndex = 0;
-        this.foeSpeed = 0;
-        this.heartSpeed = 20;
+        this.life.setup();
 
         this.soundtrack.setVolume(0.1);
-        
-        this.status.start();
         this.soundtrack.loop();
 
         this.running = true;
-        this.life.setup();
-
         loop();
     }
 
@@ -77,15 +74,20 @@ class Game {
 
     draw() {
 
-        if (this.currentFoes.length == 0) {
+        if (this.currentNpcs.length == 0) {
 
-            this.foeSpeed = random(10, 40);
-            this.currentFoesStartIndex = Math.floor(random(0, 3));
-
-            this.foes.slice(this.currentFoesStartIndex, this.currentFoesStartIndex + 1).forEach(foe => {
-                foe.restart();
-                this.currentFoes.push(foe);
+            const mapNpc = this.npcMap[this.currentNpcsIndex];
+            let aNpc;
+            mapNpc.forEach(npc => {
+                aNpc = this.npcs[npc.index];
+                aNpc.setSpeed(npc.speed);
+                this.currentNpcs.push(aNpc);
             });
+
+            this.currentNpcsIndex++;
+            if (this.currentNpcsIndex >= this.npcMap.length) {
+                this.currentNpcsIndex = 0;
+            }
         }
 
         background(255);
@@ -94,45 +96,48 @@ class Game {
         this.score.draw();
         this.life.draw();
 
-        this.currentFoes.forEach((foe, index) => {
-            foe.move(this.foeSpeed);
-            foe.draw();
-            if (foe.isGone()) {
-                this.currentFoes.splice(index, 1);
+        this.currentNpcs.forEach((npc, index) => {
+            npc.move();
+            npc.draw();
+            if (npc.isGone()) {
+                this.currentNpcs.splice(index, 1);
+                npc.restart();
             }
         });
 
         this.character.applyGravity();
         this.character.draw();
 
-        this.heart.draw();
-        this.heart.move(this.heartSpeed);
+        let isGameOver = false; 
+        this.currentNpcs.forEach((npc, index) => {
+           
+            if (this.character.isColliding(npc)) {
 
-        if (this.currentFoes.filter(foe => this.character.isColliding(foe)).length > 0) {
-            this.life.lose();
-            this.jumpSound.play();
-            this.character.makesInvincible();
-            if (!this.life.isAlive()) {
-                this.running = false;
-                return this.gameOver;
+                if (npc.isEnemy) {
+                    this.life.lose();
+                    this.jumpSound.play();
+                    this.character.makesInvincible();
+                    if (!this.life.isAlive()) {
+                        this.running = false;
+                        isGameOver = true
+                    }
+                } else {
+                    
+                    npc.coordinates.positionX = width * 2;
+                    this.jumpSound.play();
+
+                    const lastLifeCount = this.life.current;
+                    this.life.gain();
+                    if (lastLifeCount == this.life.current) {
+                        this.score.increase(50);
+                    }
+                    this.currentNpcs.splice(index, 1);
+                }
             }
-        }
+        });
 
-        if (this.character.isColliding(this.heart)) {
-            this.heart.coordinates.positionX = width * 2;
-            
-            this.jumpSound.play();
-
-            const lastLifeCount = this.life.current;
-            this.life.gain();
-            if (lastLifeCount == this.life.current) {
-                this.score.increase(50);
-            }
-        }
-
-        if (this.heart.isGone()) {
-            this.heart.coordinates.positionX = width * Math.floor(random(3, 10));
-            this.heartSpeed = Math.floor(random(5, 50));
+        if (isGameOver) {
+            return this.gameOver;;
         }
 
         this.score.increase(0.1);

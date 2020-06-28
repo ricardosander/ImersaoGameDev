@@ -25,7 +25,7 @@ class PlaybleCharacter extends Character {
         this.coordinates.applyGravity();
     }
 
-    isColliding(foe) {
-        return !this.invincible && this.coordinates.isColliding(foe.coordinates);
+    isColliding(npc) {
+        return (!npc.isEnemy || !this.invincible) && this.coordinates.isColliding(npc.coordinates);
     }
 }
