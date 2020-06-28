@@ -34,4 +34,5 @@ Algumas pendências de ajustes, desafios e coisas que planejo fazer:
 * aprimoramentos nas dimensões dos personagens, olhando de forma individual
 * aprimoramento nas colisões dos personagens e inimigos, olhando de forma individual
 * ajustar tamanho de personagens, inimigos, botões e textos conforme tamanho da tela (mobile)
+* adicionar o coceito de "fases"
 * tentar recarregar a tela do mobile quando a tela girar
