@@ -70,7 +70,13 @@ function setup() {
         }
     });
 
-    characterSelection = new CharacterSelection(imageRepository, game, buttons);
+    const buttons2 = [
+        new Button(() => { characterSelection.currentPcIndex--; loop() }, screenWidth * 0.1, screenHeight * 0.5, '< Anterior'),
+        new Button(() => { characterSelection.currentPcIndex++; loop() }, screenWidth * 0.8, screenHeight * 0.5, 'Próximo > '),
+        new Button(() => { selectCharacter(characterSelection.currentPc.code, game) }, screenWidth * 0.45, screenHeight * 0.8, 'Escolher')
+    ];
+
+    characterSelection = new CharacterSelection(imageRepository, game, buttons2, settings.pcs);
     homeScreen = new HomeScreen(imageRepository, characterSelection, button1);
 
     currentScene = eval(settings.startScene);

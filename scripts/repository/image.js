@@ -15,6 +15,9 @@ class ImageRepository {
 
         this.characterImage = loadImage('assets/images/character/running.png');
 
+        this.hipsta = [];
+        this.hipsta['run'] = [loadImage('assets/images/character/idle.png')];
+
         this.knight = [];
         this.knight['run'] = [];
         this.load(this.knight, 'knight', 10);
@@ -51,13 +54,13 @@ class ImageRepository {
         this.jack['run'] = [];
         this.load(this.jack, 'jack', 8);
 
-        this.ninjaBoy = [];
-        this.ninjaBoy['run'] = [];
-        this.load(this.ninjaBoy, 'ninjaboy', 10);
+        this.ninjaboy = [];
+        this.ninjaboy['run'] = [];
+        this.load(this.ninjaboy, 'ninjaboy', 10);
 
-        this.ninjaGirl = [];
-        this.ninjaGirl['run'] = [];
-        this.load(this.ninjaGirl, 'ninjagirl', 10);
+        this.ninjagirl = [];
+        this.ninjagirl['run'] = [];
+        this.load(this.ninjagirl, 'ninjagirl', 10);
 
         this.robot = [];
         this.robot['run'] = [];
@@ -67,13 +70,13 @@ class ImageRepository {
         this.santa['run'] = [];
         this.load(this.santa, 'santa', 11);
 
-        this.zombieBoy = [];
-        this.zombieBoy['run'] = [];
-        this.load(this.zombieBoy, 'zombieboy', 10);
+        this.zombieboy = [];
+        this.zombieboy['run'] = [];
+        this.load(this.zombieboy, 'zombieboy', 10);
 
-        this.zombieGirl = [];
-        this.zombieGirl['run'] = [];
-        this.load(this.zombieGirl, 'zombiegirl', 10);
+        this.zombiegirl = [];
+        this.zombiegirl['run'] = [];
+        this.load(this.zombiegirl, 'zombiegirl', 10);
 
 
         this.dropletImage = loadImage('assets/images/foes/droplet.png');

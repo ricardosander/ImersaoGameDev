@@ -347,9 +347,9 @@ class CharacterRepository {
 
         const character = new PlaybleCharacter(
             new Frame(
-                this.imageRepository.ninjaBoy['run'],
-                this.imageRepository.ninjaBoy['run'][0].width,
-                this.imageRepository.ninjaBoy['run'][0].height
+                this.imageRepository.ninjaboy['run'],
+                this.imageRepository.ninjaboy['run'][0].width,
+                this.imageRepository.ninjaboy['run'][0].height
             ),
             new Coordinates(
                 characterStartX,
@@ -374,9 +374,9 @@ class CharacterRepository {
 
         const character = new PlaybleCharacter(
             new Frame(
-                this.imageRepository.ninjaGirl['run'],
-                this.imageRepository.ninjaGirl['run'][0].width,
-                this.imageRepository.ninjaGirl['run'][0].height
+                this.imageRepository.ninjagirl['run'],
+                this.imageRepository.ninjagirl['run'][0].width,
+                this.imageRepository.ninjagirl['run'][0].height
             ),
             new Coordinates(
                 characterStartX,
@@ -455,9 +455,9 @@ class CharacterRepository {
 
         const character = new PlaybleCharacter(
             new Frame(
-                this.imageRepository.zombieBoy['run'],
-                this.imageRepository.zombieBoy['run'][0].width,
-                this.imageRepository.zombieBoy['run'][0].height
+                this.imageRepository.zombieboy['run'],
+                this.imageRepository.zombieboy['run'][0].width,
+                this.imageRepository.zombieboy['run'][0].height
             ),
             new Coordinates(
                 characterStartX,
@@ -482,9 +482,9 @@ class CharacterRepository {
 
         const character = new PlaybleCharacter(
             new Frame(
-                this.imageRepository.zombieGirl['run'],
-                this.imageRepository.zombieGirl['run'][0].width,
-                this.imageRepository.zombieGirl['run'][0].height
+                this.imageRepository.zombiegirl['run'],
+                this.imageRepository.zombiegirl['run'][0].width,
+                this.imageRepository.zombiegirl['run'][0].height
             ),
             new Coordinates(
                 characterStartX,
