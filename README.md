@@ -24,6 +24,8 @@ Alguns desafios foram dados pelos instrutores durante as aulas imersão e eu ten
 * controle de estado por cena (inicio, seleção de personagem, pause e game over) - desafio + extra
 * randomicidade do tipo de inimigo - extra
 * randomicidade da velocidade de inimigos e "moedas" - extra
+* recuperação de vidas - desafio
+* configuração do jogo, vidas, personagens e inimigos por arquivo JSON - extra.
 * aprimoramentos para o mobile - extra
 
 
