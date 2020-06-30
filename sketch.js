@@ -2,16 +2,18 @@ let imageRepository;
 let soundRepository;
 let toMoveFont;
 
-let click = true;
-
 let homeScreen;
 let game;
+let gameOver;
+let pauseGame;
 
 let currentScene;
 
 let selectedCharacter;
 
 let settings;
+let device;
+let scenes;
 
 function preload() {
 
@@ -25,73 +27,46 @@ function preload() {
     soundRepository.preload();
     
     toMoveFont = loadFont('assets/images/assets/fontHomeScreen.otf');
+
+    window.addEventListener('resize', function () { console.log('resized'); window.location.reload(); });
 }
 
 function setup() {
 
     selectedCharacter = 'hipsta';
 
-    let screenWidth =  windowWidth;
-    let screenHeight =  windowHeight;
-
-    if (screenHeight > screenWidth) {
-        screenHeight = screenWidth;
-    }
+    device = new Device(windowWidth, windowHeight);
 
     frameRate(40);
-    createCanvas(screenWidth, screenHeight);
+    createCanvas(device.width, device.height);
 
-    const button1 = new Button(() => { changeScene(characterSelection) }, screenWidth * 0.5, screenHeight * 0.6, 'Continuar');
-    const continuar = new Button(() => { keyPressed({ code: 'Enter' }) }, width * 0.5, height * 0.6, 'Continuar');
-    const button2 = new Button(() => { changeScene(characterSelection) }, screenWidth * 0.5, screenHeight * 0.7, 'Trocar Personagem');
+    gameOver = new GameOver(imageRepository, soundRepository);
+    pauseGame = new GamePause(imageRepository, soundRepository);
+    game = new Game(imageRepository, soundRepository, settings);
+    characterSelection = new CharacterSelection(imageRepository, game, settings.pcs);
+    homeScreen = new HomeScreen(imageRepository, characterSelection);
 
-    const gameOver = new GameOver(imageRepository, soundRepository, button2, continuar);
-    const gamePause = new GamePause(imageRepository, soundRepository, button2);
-    game = new Game(imageRepository, soundRepository, gameOver, gamePause, settings);
+    scenes = {
+        'homeScreen': homeScreen,
+        'characterSelection': characterSelection,
+        'game': game,
+        'pauseGame': pauseGame,
+        'gameOver': gameOver
+    }
 
-    const buttons = [];
-
-    let x = 1;
-    let y = 25;
-
-    const maxX = 7;
-    const maxY = 75;
-
-    settings.pcs.forEach((pc, index) => {
-        
-        buttons.push(new Button(() => { selectCharacter(pc.code, game) }, screenWidth * (x / 10), screenHeight * ( y / 100), pc.name));
-        x += 3;
-        if (x > maxX) {
-            x = 1;
-            y += 10;
-        }
-        if (y > maxY) {
-            return;
-        }
-    });
-
-    const buttons2 = [
-        new Button(() => { characterSelection.currentPcIndex--; loop() }, screenWidth * 0.1, screenHeight * 0.5, '< Anterior'),
-        new Button(() => { characterSelection.currentPcIndex++; loop() }, screenWidth * 0.8, screenHeight * 0.5, 'Próximo > '),
-        new Button(() => { selectCharacter(characterSelection.currentPc.code, game) }, screenWidth * 0.45, screenHeight * 0.8, 'Escolher')
-    ];
-
-    characterSelection = new CharacterSelection(imageRepository, game, buttons2, settings.pcs);
-    homeScreen = new HomeScreen(imageRepository, characterSelection, button1);
-
-    currentScene = eval(settings.startScene);
-
+    currentScene = scenes[settings.startScene];
     currentScene.setup();
 }
 
 function touchStarted(event) {
-    click = false;
-    event.code = 'Touch';
+    device.isTouch = true;
+    event.code = 'Click';
     keyPressed(event);
 }
 
 function mousePressed(event) {
-    if (click) {//solves mobile problem where a touch triggers touchStarted and mousePressed event.
+    if (!device.isTouch) {//solves mobile problem where a touch triggers touchStarted and mousePressed event.
+        event.code = 'Click';
         keyPressed(event);
     }
 }

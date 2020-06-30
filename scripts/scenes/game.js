@@ -1,11 +1,9 @@
 class Game {
 
-    constructor(imageRepository, soundRepository, gameOver, pauseGame, settings) {
+    constructor(imageRepository, soundRepository, settings) {
 
         this.imageRepository = imageRepository;
         this.soundRepository = soundRepository;
-        this.gameOver = gameOver;
-        this.pauseGame = pauseGame;
 
         this.characterRepository = new CharacterRepository(this.imageRepository);
         this.scenarioRepository = new ScenarioRepository(this.imageRepository);
@@ -58,7 +56,7 @@ class Game {
 
     keyPressed(keyCode) {
 
-        if (keyCode == 'ArrowUp' || keyCode == 'Touch') {
+        if (keyCode == 'ArrowUp' || keyCode == 'Click') {
             if (this.character.canJump()) {
                 this.character.jump()
                 this.jumpSound.play();
@@ -66,7 +64,7 @@ class Game {
         }
 
         if (keyCode == 'Enter') {
-            return this.pauseGame;
+            return pauseGame;
         }
 
         return this;
@@ -137,7 +135,7 @@ class Game {
         });
 
         if (isGameOver) {
-            return this.gameOver;;
+            return gameOver;;
         }
 
         this.score.increase(0.1);

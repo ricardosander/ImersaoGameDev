@@ -1,14 +1,14 @@
 class HomeScreen {
 
-    constructor(imageRepository, game, button) {
+    constructor(imageRepository, game) {
         this.imageRepository = imageRepository;
         this.game = game;
-        this.button = button;
 
         this.font = toMoveFont;
     }
 
     setup() {
+        this.button = new Button(() => { changeScene(characterSelection) }, device.width * 0.5, device.height * 0.6, 'Continuar');
         this.button.setup();
     }
 

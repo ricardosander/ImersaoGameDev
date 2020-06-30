@@ -1,15 +1,18 @@
 class GameOver {
 
-    constructor(imageRepository, soundRepository, button, continar) {
+    constructor(imageRepository, soundRepository) {
         this.imageRepository = imageRepository;
         this.soundtrack = soundRepository.soundtrack;
-        this.button = button;
-        this.continnuar = continar;
     }
 
     setup() {
+
         this.soundtrack.stop();
-        this.button.setup();
+        
+        this.changeCharacter = new Button(() => { changeScene(characterSelection) }, device.width * 0.5, device.height * 0.7, 'Trocar Personagem');
+        this.changeCharacter.setup();
+
+        this.continnuar = new Button(() => { keyPressed({ code: 'Enter' }) }, width * 0.5, height * 0.6, 'Continuar');
         this.continnuar.setup();
     }
 
@@ -36,7 +39,7 @@ class GameOver {
         text('Uma criatura do mundo das fadas capturou voce.', width * 0.5, height * 0.45);
         text('O portal para o seu mundo se fechou para sempre.', width * 0.5, height * 0.55);
 
-        this.button.button.center('horizontal');
+        this.changeCharacter.button.center('horizontal');
         this.continnuar.button.center('horizontal');
 
         noLoop();
@@ -44,7 +47,7 @@ class GameOver {
     }
 
     clear() {
-        this.button.clear();
+        this.changeCharacter.clear();
         this.continnuar.clear();
     }
 }

@@ -1,9 +1,8 @@
 class CharacterSelection {
 
-    constructor(imageRepository, game, buttons, pcs) {
+    constructor(imageRepository, game, pcs) {
         this.imageRepository = imageRepository;
         this.game = game;
-        this.buttons = buttons;
         this.pcs = pcs;
 
         this.font = toMoveFont;
@@ -12,6 +11,13 @@ class CharacterSelection {
     }
 
     setup() {
+
+        this.buttons = [
+            new Button(() => { characterSelection.currentPcIndex--; loop() }, device.width * 0.1, device.height * 0.5, '< Anterior'),
+            new Button(() => { characterSelection.currentPcIndex++; loop() }, device.width * 0.8, device.height * 0.5, 'Próximo > '),
+            new Button(() => { selectCharacter(characterSelection.currentPc.code, game) }, device.width * 0.45, device.height * 0.8, 'Escolher')
+        ];
+
         this.buttons.forEach(button => { button.setup(); });
         loop();
     }
