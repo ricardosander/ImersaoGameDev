@@ -1,0 +1,104 @@
+{
+    "npcs": {
+        "npcs" : [
+            {
+                "code":"heart",
+                "width": 200,
+                "height": 167,
+                "parts": 8,
+                "deltaY": 40,
+                "isEnemy": false
+            },
+            {
+                "code":"droplet",
+                "width": 104,
+                "height": 104,
+                "parts": 12,
+                "deltaY": 0,
+                "isEnemy": true
+            },
+            {
+                "code": "flyingdroplet",
+                "width" : 200,
+                "height" : 150,
+                "parts" : 17,
+                "lastSpriteX": 0,
+                "lastSpriteY": 750,
+                "deltaY": 15,
+                "isEnemy": true
+            },
+            {
+                "code": "troll",
+                "width" : 400,
+                "height" : 400,
+                "parts" : 42,
+                "lastSpriteX": 800,
+                "lastSpriteY": 2000,
+                "deltaY": -6,
+                "isEnemy": true
+            }
+        ],
+        "map": [
+            [
+                {
+                    "index": 1,
+                    "speed": 20
+                }
+            ],
+            [
+                {
+                    "index": 2,
+                    "speed": 20
+                }
+            ],
+            [
+                {
+                    "index": 1,
+                    "speed": 30
+                },
+                {
+                    "index": 2,
+                    "speed": 20
+                }
+            ],
+            [
+                {
+                    "index": 3,
+                    "speed": 20
+                }
+            ],
+            [
+                {
+                    "index": 0,
+                    "speed": 20
+                }
+            ],
+            [
+                {
+                    "index": 1,
+                    "speed": 30
+                },
+                {
+                    "index": 3,
+                    "speed": 20
+                }
+            ],
+            [
+                {
+                    "index": 2,
+                    "speed": 40
+                },
+                {
+                    "index": 3,
+                    "speed": 20
+                }
+            ],
+            [
+                {
+                    "index": 0,
+                    "speed": 40
+                }
+            ]
+        ]
+    }
+}

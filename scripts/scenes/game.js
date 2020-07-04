@@ -12,7 +12,7 @@ class Game {
         this.jumpSound = this.soundRepository.getJumpSound();
 
         this.score = new Score();
-        this.life = new Life(this.imageRepository.heartImage, settings.life.max, settings.life.start);
+        this.life = new Life(this.imageRepository.heartImage, settings.game.life.max, settings.game.life.start);
 
         this.npcMap = settings.npcs.map;
         this.npcs = [];
@@ -35,11 +35,9 @@ class Game {
         this.scenario = this.scenarioRepository.createScenario();
         this.character = this.characterRepository.createPlaybleCharacter(this.selectCharacter);
         
-        const heart = this.characterRepository.createHeart();
-        const foes = this.characterRepository.createFoes();
-
-        this.npcs = [heart];
-        foes.forEach(foe => this.npcs.push(foe));
+        this.characterRepository.createNpcs().forEach(npc => { 
+            this.npcs.push(npc) 
+        });
         
         this.currentNpcs = [];
         this.currentNpcsIndex = 0;
@@ -79,6 +77,7 @@ class Game {
             mapNpc.forEach(npc => {
                 aNpc = this.npcs[npc.index];
                 aNpc.setSpeed(npc.speed);
+                aNpc.restart();
                 this.currentNpcs.push(aNpc);
             });
 
@@ -121,7 +120,7 @@ class Game {
                     }
                 } else {
                     
-                    npc.coordinates.positionX = width * 2;
+                    npc.restart();
                     this.jumpSound.play();
 
                     const lastLifeCount = this.life.current;
@@ -135,7 +134,7 @@ class Game {
         });
 
         if (isGameOver) {
-            return gameOver;;
+            return gameOver;
         }
 
         this.score.increase(0.1);

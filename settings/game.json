@@ -1,0 +1,11 @@
+{
+    "startScene" : "homeScreen",
+    "life": {
+        "max": 3,
+        "start": 1
+    },
+    "collisionEnabled" : true,
+    "showCharacterArea": true,
+    "showCollision": true,
+    "showScreenParts": false
+}

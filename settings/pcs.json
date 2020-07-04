@@ -1,0 +1,165 @@
+{
+    "default" : "hipsta",
+    "pcs": [
+        {
+            "name" : "Bruxinha Emilly",
+            "code" : "hipsta",
+            "width" : 220,
+            "height" : 270,
+            "description" : "Eu estava criando uma nova pocao\n quando algo deu errado e vim parar aqui.",
+            "parts": 25,
+            "deltaY": 0,
+            "animation": "simple"
+        },
+        {
+            "name" : "Cavaleiro Samuel",
+            "code" : "knight",
+            "width" : 587,
+            "height" : 707,
+            "description" : "Eu estava lutando com um dragao terrivel\ne um feitico me transportou\npara esse mundo estranho.",
+            "parts": 25,
+            "deltaY": -2,
+            "animation": "multiple"
+        },
+        {
+            "name" : "Arthur",
+            "code" : "boy",
+            "width" : 614,
+            "height" : 564,
+            "description" : "Eu estava indo para a escola,\nmas acho que virei na rua errada...",
+            "parts": 25,
+            "deltaY": -3,
+            "animation": "multiple"
+        },
+        {
+            "name" : "Alice",
+            "code" : "girl",
+            "width" : 416,
+            "height" : 454,
+            "description" : "Eu estava seguindo um coelho branco que estava atrasado,\nao entrar na toca dele, sai nessa floresta.",
+            "parts": 25,
+            "deltaY": -0,
+            "animation": "multiple"
+        },
+        {
+            "name" : "Dino",
+            "code" : "dino",
+            "width" : 680,
+            "height" : 472,
+            "description" : "Eu estava dando carona para um encanador,\nmas ao entrar em um cano,\nsai nesse lugar inexperado.",
+            "parts": 25,
+            "deltaY": -2,
+            "animation": "multiple"
+        },
+        {
+            "name" : "Sr. Whiskas",
+            "code" : "cat",
+            "width" : 542,
+            "height" : 474,
+            "description" : "Gosto de dormir e carinho na barriga.\nMas nao gosto de voce.",
+            "parts": 25,
+            "deltaY": -1,
+            "animation": "multiple"
+        },
+        {
+            "name" : "Berillo",
+            "code" : "dog",
+            "width" : 547,
+            "height" : 481,
+            "description" : "Gosto muito de tudo.\nE de todos.\nE de voce tambem.",
+            "parts": 25,
+            "deltaY": -1,
+            "animation": "multiple"
+        },
+        {
+            "name" : "Zumbiana",
+            "code" : "zombiegirl",
+            "width" : 521,
+            "height" : 576,
+            "description" : "Sou instrutora da Imersao Game Dev e como cerebros.\nVim ver se esse jogo ficou bom.",
+            "parts": 25,
+            "deltaY": -1,
+            "animation": "multiple"
+        },
+        {
+            "name" : "Zumbenzo",
+            "code" : "zombieboy",
+            "width" : 430,
+            "height" : 519,
+            "description" : "Uhhhhhnnnnnnnn",
+            "parts": 25,
+            "deltaY": -0,
+            "animation": "multiple"
+        },
+        {
+            "name" : "Kakashi",
+            "code" : "ninjaboy",
+            "width" : 363,
+            "height" : 458,
+            "description" : "Tive que usar meu Sharingan\nMas acho que errei ao tentar copiar a tecnica\ne abri um portal para ca.",
+            "parts": 25,
+            "deltaY": -1,
+            "animation": "multiple"
+        },
+        {
+            "name" : "Sakura",
+            "code" : "ninjagirl",
+            "width" : 376,
+            "height" : 520,
+            "description" : "Tentei um novo Jutsu de teletransporte.\nAcho que deu certo, mas errei o lugar.",
+            "parts": 25,
+            "deltaY": -0,
+            "animation": "multiple"
+        },
+        {
+            "name" : "Jack Lanterna",
+            "code" : "jack",
+            "width" : 579,
+            "height" : 763,
+            "description" : "Eu queria doces e fiz uma travessura.\nAcabei caindo aqui por engano.",
+            "parts": 25,
+            "deltaY": -0,
+            "animation": "multiple"
+        },
+        {
+            "name" : "Papai Noel",
+            "code" : "santa",
+            "width" : 934,
+            "height" : 641,
+            "description" : "Ho-Ho-Ho\nParece que Rudolph guiou meu treno para o mundo errado.",
+            "parts": 25,
+            "deltaY": -2,
+            "animation": "multiple"
+        },
+        {
+            "name" : "Lara Croft",
+            "code" : "cowgirl",
+            "width" : 641,
+            "height" : 542,
+            "description" : "Ao tocar em uma reliquia antiga\nacionei algum tipo de armadilha\nque me trouxe para ca.",
+            "parts": 25,
+            "deltaY": -1,
+            "animation": "multiple"
+        },
+        {
+            "name" : "Nathan Drake",
+            "code" : "cowboy",
+            "width" : 415,
+            "height" : 507,
+            "description" : "Eu nao podia ficar de fora,\nentao fiz o mesmo que a Lara.",
+            "parts": 25,
+            "deltaY": -1,
+            "animation": "multiple"
+        },
+        {
+            "name" : "Optimus",
+            "code" : "robot",
+            "width" : 567,
+            "height" : 556,
+            "description" : "Estava viajando no espaco rumo ao planeta Terra,\nmas parece que cai no lugar errado.",
+            "parts": 25,
+            "deltaY": -1,
+            "animation": "multiple"
+        }
+    ]
+}

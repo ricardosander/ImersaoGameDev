@@ -1,21 +1,20 @@
 class Coordinates {
 
     constructor(startPositionX, deltaY, width, cHeight, positionPrecision, sizePrecision) {
-        this.startPositionX = startPositionX;
         this.deltaY = deltaY;
         this.width = width;
         this.height = cHeight;
         this.positionPrecision = positionPrecision;
         this.sizePrecision = sizePrecision;
 
-        this.startPositionX = this.startPositionX;
-        this.startPositionY = height - this.height - this.deltaY;
+        this.startPositionX = startPositionX;
+        this.startPositionY = device.height - this.height - this.deltaY;
 
         this.positionX = this.startPositionX;
         this.positionY = this.startPositionY;
 
         this.speedPositionY = 0;
-        this.gravity = 3;
+        this.gravity = device.getHeightByParts(0.25);
 
         this.jumpingCount = 0
     }
@@ -38,6 +37,8 @@ class Coordinates {
     }
 
     restart() {
+        console.log(this.positionX);
+        console.log(this.startPositionX);
         this.positionX = this.startPositionX;
     }
 
@@ -66,7 +67,7 @@ class Coordinates {
             target.height * target.sizePrecision
         );
 
-        if (isColliding) {
+        if (isColliding && settings.game.showCollision) {
             this.drawRects();
             target.drawRects();
         }
@@ -75,6 +76,7 @@ class Coordinates {
     }
 
     drawRects() {
+        
         noFill();
         rect(
             this.positionX * this.positionPrecision,

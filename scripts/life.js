@@ -6,10 +6,11 @@ class Life {
         this.start = start;
         this.current = this.start;
 
-        this.width = this.image.width * 0.4;
-        this.height = this.image.height * 0.4;
+        const parts = 6;
+        this.width = device.getWidthByParts(parts, this.image.width, this.image.height);
+        this.height = device.getHeightByParts(parts);
 
-        this.margin = 20;
+        this.margin = device.getHeightByParts(2);
     }
 
     setup() {

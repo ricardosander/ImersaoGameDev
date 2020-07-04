@@ -14,7 +14,7 @@ class PlaybleCharacter extends Character {
     }
 
     jump() {
-        this.coordinates.jump(-50);
+        this.coordinates.jump(-device.getHeightByParts(4));
     }
 
     canJump() {
@@ -26,6 +26,6 @@ class PlaybleCharacter extends Character {
     }
 
     isColliding(npc) {
-        return (!npc.isEnemy || !this.invincible) && this.coordinates.isColliding(npc.coordinates);
+        return settings.game.collisionEnabled && (!npc.isEnemy || !this.invincible) && this.coordinates.isColliding(npc.coordinates);
     }
 }

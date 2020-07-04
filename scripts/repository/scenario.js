@@ -22,15 +22,15 @@ class ScenarioRepository {
 
         return new Scenario(
             [
-                this.imageRepository.skyImage,
+                // this.imageRepository.skyImage,
                 this.imageRepository.forestImage5,
                 this.imageRepository.forestImage4,
                 this.imageRepository.forestImage3,
                 this.imageRepository.forestImage2,
-                this.imageRepository.particlesImage2,
+                // this.imageRepository.particlesImage2,
                 this.imageRepository.forestImage1,
-                this.imageRepository.particlesImage1,
-                this.imageRepository.mistImage
+                // this.imageRepository.particlesImage1,
+                // this.imageRepository.mistImage
             ],
             [skySpeed, forest5Speed, forest4Speed, forest3Speed, forest2Speed, particles2Speed, forest1Speed, particles1Speed, mistSpeed],
             scenarioPositionX1,

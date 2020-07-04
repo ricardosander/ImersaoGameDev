@@ -20,7 +20,9 @@ class Character {
             this.frame.height
         );
 
-        // this.coordinates.drawRects();
+        if (settings.game.showCharacterArea) {
+            this.coordinates.drawRects();
+        }
 
         this.animate();
     }

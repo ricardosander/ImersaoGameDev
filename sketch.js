@@ -11,14 +11,19 @@ let currentScene;
 
 let selectedCharacter;
 
+let pcsSettings;
+let npcsSettings;
+let gameSettings;
 let settings;
+
 let device;
 let scenes;
 
 function preload() {
 
-    settings = loadJSON("settings.json");
-    console.log(settings);
+    game = loadJSON("settings/game.json");
+    pcs = loadJSON("settings/pcs.json");
+    npcs = loadJSON("settings/npcs.json");
 
     imageRepository = new ImageRepository();
     imageRepository.preload();
@@ -33,6 +38,14 @@ function preload() {
 
 function setup() {
 
+    settings = {
+        game: game,
+        pcs: pcs,
+        npcs: npcs.npcs
+    };
+
+    console.log(settings);
+
     selectedCharacter = 'hipsta';
 
     device = new Device(windowWidth, windowHeight);
@@ -43,7 +56,7 @@ function setup() {
     gameOver = new GameOver(imageRepository, soundRepository);
     pauseGame = new GamePause(imageRepository, soundRepository);
     game = new Game(imageRepository, soundRepository, settings);
-    characterSelection = new CharacterSelection(imageRepository, game, settings.pcs);
+    characterSelection = new CharacterSelection(imageRepository, game);
     homeScreen = new HomeScreen(imageRepository, characterSelection);
 
     scenes = {
@@ -54,7 +67,7 @@ function setup() {
         'gameOver': gameOver
     }
 
-    currentScene = scenes[settings.startScene];
+    currentScene = scenes[settings.game.startScene];
     currentScene.setup();
 }
 
@@ -94,9 +107,12 @@ function changeScene(scene) {
 }
 
 function draw() {
+
     let scene = currentScene.draw();
     if (scene != currentScene) {
         changeScene(scene);
     }
+
+    device.drawParts();
 }
 

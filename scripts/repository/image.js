@@ -15,69 +15,70 @@ class ImageRepository {
 
         this.characterImage = loadImage('assets/images/character/running.png');
 
-        this.hipsta = [];
-        this.hipsta['run'] = [loadImage('assets/images/character/idle.png')];
+        this.characters = [];
 
-        this.knight = [];
-        this.knight['run'] = [];
-        this.load(this.knight, 'knight', 10);
+        this.characters['hipsta'] = [];
+        this.characters['hipsta']['run'] = [loadImage('assets/images/character/idle.png')];
 
-        this.boy = [];
-        this.boy['run'] = [];
-        this.load(this.boy, 'boy', 15);
+        this.characters['knight'] = [];
+        this.characters['knight']['run'] = [];
+        this.load('knight', 10);
 
-        this.cat = [];
-        this.cat['run'] = [];
-        this.load(this.cat, 'cat', 8);
+        this.characters['boy'] = [];
+        this.characters['boy']['run'] = [];
+        this.load('boy', 15);
 
-        this.cowboy = [];
-        this.cowboy['run'] = [];
-        this.load(this.cowboy, 'cowboy', 10);
+        this.characters['cat'] = [];
+        this.characters['cat']['run'] = [];
+        this.load('cat', 8);
 
-        this.cowgirl = [];
-        this.cowgirl['run'] = [];
-        this.load(this.cowgirl, 'cowgirl', 8);
+        this.characters['cowboy'] = [];
+        this.characters['cowboy']['run'] = [];
+        this.load('cowboy', 10);
 
-        this.dino = [];
-        this.dino['run'] = [];
-        this.load(this.dino, 'dino', 8);
+        this.characters['cowgirl'] = [];
+        this.characters['cowgirl']['run'] = [];
+        this.load('cowgirl', 8);
 
-        this.dog = [];
-        this.dog['run'] = [];
-        this.load(this.dog, 'dog', 8);
+        this.characters['dino'] = [];
+        this.characters['dino']['run'] = [];
+        this.load('dino', 8);
 
-        this.girl = [];
-        this.girl['run'] = [];
-        this.load(this.girl, 'girl', 20);
+        this.characters['dog'] = [];
+        this.characters['dog']['run'] = [];
+        this.load('dog', 8);
 
-        this.jack = [];
-        this.jack['run'] = [];
-        this.load(this.jack, 'jack', 8);
+        this.characters['girl'] = [];
+        this.characters['girl']['run'] = [];
+        this.load('girl', 20);
 
-        this.ninjaboy = [];
-        this.ninjaboy['run'] = [];
-        this.load(this.ninjaboy, 'ninjaboy', 10);
+        this.characters['jack'] = [];
+        this.characters['jack']['run'] = [];
+        this.load('jack', 8);
 
-        this.ninjagirl = [];
-        this.ninjagirl['run'] = [];
-        this.load(this.ninjagirl, 'ninjagirl', 10);
+        this.characters['ninjaboy'] = [];
+        this.characters['ninjaboy']['run'] = [];
+        this.load('ninjaboy', 10);
 
-        this.robot = [];
-        this.robot['run'] = [];
-        this.load(this.robot, 'robot', 8);
+        this.characters['ninjagirl'] = [];
+        this.characters['ninjagirl']['run'] = [];
+        this.load('ninjagirl', 10);
 
-        this.santa = [];
-        this.santa['run'] = [];
-        this.load(this.santa, 'santa', 11);
+        this.characters['robot'] = [];
+        this.characters['robot']['run'] = [];
+        this.load('robot', 8);
 
-        this.zombieboy = [];
-        this.zombieboy['run'] = [];
-        this.load(this.zombieboy, 'zombieboy', 10);
+        this.characters['santa'] = [];
+        this.characters['santa']['run'] = [];
+        this.load('santa', 11);
 
-        this.zombiegirl = [];
-        this.zombiegirl['run'] = [];
-        this.load(this.zombiegirl, 'zombiegirl', 10);
+        this.characters['zombieboy'] = [];
+        this.characters['zombieboy']['run'] = [];
+        this.load('zombieboy', 10);
 
+        this.characters['zombiegirl'] = [];
+        this.characters['zombiegirl']['run'] = [];
+        this.load('zombiegirl', 10);
 
         this.dropletImage = loadImage('assets/images/foes/droplet.png');
         this.flyingDropletImage = loadImage('assets/images/foes/flying_droplet.png');
@@ -89,9 +90,9 @@ class ImageRepository {
         this.homeScreenImage = loadImage('assets/images/assets/homescreen.png');
     }
 
-    load(array, characterName, sprites) {
+    load(characterName, sprites) {
         for (var i = 1; i < sprites + 1; i++) {
-            array['run'].push(loadImage('assets/images/character/' + characterName + '/run/character' + i + '.png'));
+            this.characters[characterName]['run'].push(loadImage('assets/images/character/' + characterName + '/run/character' + i + '.png'));
         }
     }
 

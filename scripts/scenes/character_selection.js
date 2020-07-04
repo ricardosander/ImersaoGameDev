@@ -1,9 +1,10 @@
 class CharacterSelection {
 
-    constructor(imageRepository, game, pcs) {
+    constructor(imageRepository, game) {
         this.imageRepository = imageRepository;
         this.game = game;
-        this.pcs = pcs;
+        this.pcs = settings.pcs.pcs;
+        console.log(this.pcs);
 
         this.font = toMoveFont;
         this.currentPcIndex = 0;
@@ -52,11 +53,11 @@ class CharacterSelection {
         text(this.currentPc.name, width / 2, height * 0.3);
 
         image(
-            this.imageRepository[this.currentPc.code]['run'][0], 
+            this.imageRepository.characters[this.currentPc.code]['run'][0], 
             width * 0.4, 
             height * 0.35, 
-            this.currentPc.width, 
-            this.currentPc.height
+            device.getWidthByParts(this.currentPc.parts, this.currentPc.width, this.currentPc.height), 
+            device.getHeightByParts(this.currentPc.parts)
         );
 
         textSize(30);

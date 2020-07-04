@@ -3,619 +3,136 @@ class CharacterRepository {
     constructor(imageRepository) {
         this.imageRepository = imageRepository;
         this.animationRepository = new AnimationRepository();
-        this.defaultDeltaY = 100;
+        this.defaultDeltaY = device.getHeightByParts(10);
     }
 
     createPlaybleCharacter(name) {
+        if (name == undefined) {
+            name = settings.pcs.default;
+        }
+        return this.createPC(name);
+    }
+
+    createPC(name) {
+
+        const pc = settings.pcs.pcs.filter(pc => pc.code == name)[0];
         
-        switch (name) {
+        const characterWidth = device.getWidthByParts(pc.parts, pc.width, pc.height);
+        const characterHeight = device.getHeightByParts(pc.parts);
+        
+        const characterStartX = 50;
+        const characterDeltaY = this.defaultDeltaY + device.getHeightByParts(pc.deltaY);
 
-            case 'hipsta': 
-                return this.createHipsta();
+        const character = new PlaybleCharacter(
+            new Frame(
+                this.getPcImage(pc.animation, pc.code),
+                pc.width,
+                pc.height,
+                pc.lastSpriteX,
+                pc.lastSpriteY,
+            ),
+            new Coordinates(
+                characterStartX,
+                characterDeltaY,
+                characterWidth,
+                characterHeight,
+                1,//1.11,
+                1,//0.9
+            ),
+            this.getPcAnimation(pc.animation)
+        );
 
-            case 'boy':
-                return this.createBoy();
+        return character;
+    }
 
-            case 'cat':
-                return this.createCat();
+    getPcImage(animation, code) {
 
-            case 'cowboy':
-                return this.createCowboy();
-            
-            case 'cowgirl':
-                return this.createCowgirl();
+        switch (animation) {
 
-            case 'dino':
-                return this.createDino();
+            case 'simple':
+                return this.imageRepository.characterImage;
 
-            case 'dog':
-                return this.createDog();
+            case 'multiple':
+                return this.imageRepository.characters[code]['run'];
 
-            case 'girl':
-                return this.createGirl();
-
-            case 'jack':
-                return this.createJack();
-
-            case 'knight':
-                return this.createKnight();
-
-            case 'ninjaboy':
-                return this.createNinjaBoy();
-
-            case 'ninjagirl':
-                return this.createNinjaGirl();
-
-            case 'robot':
-                return this.createRobot();
-
-            case 'santa':
-                return this.createSanta();
-
-            case 'zombieboy':
-                return this.createZombieBoy();
-
-            case 'zombiegirl':
-                return this.createZombieGirl();
-
-            default:
-                return this.createHipsta();
-                
+            default: return null;
         }
     }
 
-    createHipsta() {
+    getPcAnimation(animation) {
 
-        const characterWidth = 220;
-        const characterHeight = 270;
-        const characterSpriteWidth = 220;
-        const characterSpriteHeight = 270;
-        const characterStartX = 50;
-        const characterDeltaY = this.defaultDeltaY;
+        switch (animation) {
 
-        const character = new PlaybleCharacter(
-            new Frame(
-                this.imageRepository.characterImage,
-                characterSpriteWidth,
-                characterSpriteHeight,
-                this.imageRepository.characterImage.width,
-                this.imageRepository.characterImage.height,
-            ),
-            new Coordinates(
-                characterStartX,
-                characterDeltaY,
-                characterWidth,
-                characterHeight,
-                1.11,
-                0.9
-            ),
-            this.animationRepository.getSimpleImageAnimation()
-        );
+            case 'simple':
+                return this.animationRepository.getSimpleImageAnimation();
 
-        return character;
+            case 'multiple':
+                return this.animationRepository.getMultipleImagesAnimation();
+
+            default: return null;
+        }
     }
 
-    createBoy() {
+    createNpcs() {
+        
+        const npcs = [];
 
-        const characterWidth = 614 / 2;
-        const characterHeight = 564 / 2;
-        const characterStartX = 50;
-        const characterDeltaY = this.defaultDeltaY;
+        settings.npcs.npcs.forEach(npc => npcs.push(this.createNpc(npc.code)));
 
-        const character = new PlaybleCharacter(
-            new Frame(
-                this.imageRepository.boy['run'],
-                this.imageRepository.boy['run'][0].width,
-                this.imageRepository.boy['run'][0].height
-            ),
-            new Coordinates(
-                characterStartX,
-                characterDeltaY,
-                characterWidth,
-                characterHeight,
-                1.11,
-                0.9
-            ),
-            this.animationRepository.getMultipleImagesAnimation()
-        );
-
-        return character;
+        return npcs;
     }
 
-    createCat() {
+    createNpc(code) {
 
-        const characterWidth = 542 / 2;
-        const characterHeight = 474 / 2;
-        const characterStartX = 50;
-        const characterDeltaY = this.defaultDeltaY;
+        const npc = settings.npcs.npcs.filter(npc => npc.code == code)[0];
 
-        const character = new PlaybleCharacter(
-            new Frame(
-                this.imageRepository.cat['run'],
-                this.imageRepository.cat['run'][0].width,
-                this.imageRepository.cat['run'][0].height
-            ),
-            new Coordinates(
-                characterStartX,
-                characterDeltaY,
-                characterWidth,
-                characterHeight,
-                1.11,
-                0.9
-            ),
-            this.animationRepository.getMultipleImagesAnimation()
-        );
+        const dropletWidth = device.getWidthByParts(npc.parts, npc.width, npc.height);
+        const dropletHeight = device.getHeightByParts(npc.parts);
+        const lastSpriteX = npc.lastSpriteX;
+        const lastSpriteY = npc.lastSpriteY;
 
-        return character;
-    }
-
-    createCowboy() {
-
-        const characterWidth = 415 / 2;
-        const characterHeight = 507 / 2;
-        const characterStartX = 50;
-        const characterDeltaY = this.defaultDeltaY;
-
-        const character = new PlaybleCharacter(
-            new Frame(
-                this.imageRepository.cowboy['run'],
-                this.imageRepository.cowboy['run'][0].width,
-                this.imageRepository.cowboy['run'][0].height
-            ),
-            new Coordinates(
-                characterStartX,
-                characterDeltaY,
-                characterWidth,
-                characterHeight,
-                1.11,
-                0.9
-            ),
-            this.animationRepository.getMultipleImagesAnimation()
-        );
-
-        return character;
-    }
-
-    createCowgirl() {
-
-        const characterWidth = 641 / 2;
-        const characterHeight = 542 / 2;
-        const characterStartX = 50;
-        const characterDeltaY = this.defaultDeltaY;
-
-        const character = new PlaybleCharacter(
-            new Frame(
-                this.imageRepository.cowgirl['run'],
-                this.imageRepository.cowgirl['run'][0].width,
-                this.imageRepository.cowgirl['run'][0].height
-            ),
-            new Coordinates(
-                characterStartX,
-                characterDeltaY,
-                characterWidth,
-                characterHeight,
-                1.11,
-                0.9
-            ),
-            this.animationRepository.getMultipleImagesAnimation()
-        );
-
-        return character;
-    }
-
-    createDino() {
-
-        const characterWidth = 680 / 2;
-        const characterHeight = 472 / 2;
-        const characterStartX = 50;
-        const characterDeltaY = this.defaultDeltaY;
-
-        const character = new PlaybleCharacter(
-            new Frame(
-                this.imageRepository.dino['run'],
-                this.imageRepository.dino['run'][0].width,
-                this.imageRepository.dino['run'][0].height
-            ),
-            new Coordinates(
-                characterStartX,
-                characterDeltaY,
-                characterWidth,
-                characterHeight,
-                1.11,
-                0.9
-            ),
-            this.animationRepository.getMultipleImagesAnimation()
-        );
-
-        return character;
-    }
-
-    createDog() {
-
-        const characterWidth = 547 / 2;
-        const characterHeight = 481 / 2;
-        const characterStartX = 50;
-        const characterDeltaY = this.defaultDeltaY;
-
-        const character = new PlaybleCharacter(
-            new Frame(
-                this.imageRepository.dog['run'],
-                this.imageRepository.dog['run'][0].width,
-                this.imageRepository.dog['run'][0].height
-            ),
-            new Coordinates(
-                characterStartX,
-                characterDeltaY,
-                characterWidth,
-                characterHeight,
-                1.11,
-                0.9
-            ),
-            this.animationRepository.getMultipleImagesAnimation()
-        );
-
-        return character;
-    }
-
-    createGirl() {
-
-        const characterWidth = 416 / 2;
-        const characterHeight = 454 / 2;
-        const characterStartX = 50;
-        const characterDeltaY = this.defaultDeltaY;
-
-        const character = new PlaybleCharacter(
-            new Frame(
-                this.imageRepository.girl['run'],
-                this.imageRepository.girl['run'][0].width,
-                this.imageRepository.girl['run'][0].height
-            ),
-            new Coordinates(
-                characterStartX,
-                characterDeltaY,
-                characterWidth,
-                characterHeight,
-                1.11,
-                0.9
-            ),
-            this.animationRepository.getMultipleImagesAnimation()
-        );
-
-        return character;
-    }
-
-    createJack() {
-
-        const characterWidth = 579 / 3;
-        const characterHeight = 763 / 3;
-        const characterStartX = 50;
-        const characterDeltaY = this.defaultDeltaY;
-
-        const character = new PlaybleCharacter(
-            new Frame(
-                this.imageRepository.jack['run'],
-                this.imageRepository.jack['run'][0].width,
-                this.imageRepository.jack['run'][0].height
-            ),
-            new Coordinates(
-                characterStartX,
-                characterDeltaY,
-                characterWidth,
-                characterHeight,
-                1.11,
-                0.9
-            ),
-            this.animationRepository.getMultipleImagesAnimation()
-        );
-
-        return character;
-    }
-
-    createKnight() {
-
-        const characterWidth = 587 / 2.5;
-        const characterHeight = 707 / 2.5;
-        const characterStartX = 50;
-        const characterDeltaY = this.defaultDeltaY;
-
-        const character = new PlaybleCharacter(
-            new Frame(
-                this.imageRepository.knight['run'],
-                this.imageRepository.knight['run'][0].width,
-                this.imageRepository.knight['run'][0].height
-            ),
-            new Coordinates(
-                characterStartX,
-                characterDeltaY,
-                characterWidth,
-                characterHeight,
-                1.11,
-                0.9
-            ),
-            this.animationRepository.getMultipleImagesAnimation()
-        );
-
-        return character;
-    }
-
-    createNinjaBoy() {
-
-        const characterWidth = 363 / 2;
-        const characterHeight = 458 / 2;
-        const characterStartX = 50;
-        const characterDeltaY = this.defaultDeltaY;
-
-        const character = new PlaybleCharacter(
-            new Frame(
-                this.imageRepository.ninjaboy['run'],
-                this.imageRepository.ninjaboy['run'][0].width,
-                this.imageRepository.ninjaboy['run'][0].height
-            ),
-            new Coordinates(
-                characterStartX,
-                characterDeltaY,
-                characterWidth,
-                characterHeight,
-                1.11,
-                0.9
-            ),
-            this.animationRepository.getMultipleImagesAnimation()
-        );
-
-        return character;
-    }
-
-    createNinjaGirl() {
-
-        const characterWidth = 376 / 2;
-        const characterHeight = 520 / 2;
-        const characterStartX = 50;
-        const characterDeltaY = this.defaultDeltaY;
-
-        const character = new PlaybleCharacter(
-            new Frame(
-                this.imageRepository.ninjagirl['run'],
-                this.imageRepository.ninjagirl['run'][0].width,
-                this.imageRepository.ninjagirl['run'][0].height
-            ),
-            new Coordinates(
-                characterStartX,
-                characterDeltaY,
-                characterWidth,
-                characterHeight,
-                1.11,
-                0.9
-            ),
-            this.animationRepository.getMultipleImagesAnimation()
-        );
-
-        return character;
-    }
-
-    createRobot() {
-
-        const characterWidth = 567 / 2;
-        const characterHeight = 556 / 2;
-        const characterStartX = 50;
-        const characterDeltaY = this.defaultDeltaY;
-
-        const character = new PlaybleCharacter(
-            new Frame(
-                this.imageRepository.robot['run'],
-                this.imageRepository.robot['run'][0].width,
-                this.imageRepository.robot['run'][0].height
-            ),
-            new Coordinates(
-                characterStartX,
-                characterDeltaY,
-                characterWidth,
-                characterHeight,
-                1.11,
-                0.9
-            ),
-            this.animationRepository.getMultipleImagesAnimation()
-        );
-
-        return character;
-    }
-
-    createSanta() {
-
-        const characterWidth = 934 / 3;
-        const characterHeight = 641 / 3;
-        const characterStartX = 50;
-        const characterDeltaY = this.defaultDeltaY;
-
-        const character = new PlaybleCharacter(
-            new Frame(
-                this.imageRepository.santa['run'],
-                this.imageRepository.santa['run'][0].width,
-                this.imageRepository.santa['run'][0].height
-            ),
-            new Coordinates(
-                characterStartX,
-                characterDeltaY,
-                characterWidth,
-                characterHeight,
-                1.11,
-                0.9
-            ),
-            this.animationRepository.getMultipleImagesAnimation()
-        );
-
-        return character;
-    }
-
-    createZombieBoy() {
-
-        const characterWidth = 430 / 2;
-        const characterHeight = 519 / 2;
-        const characterStartX = 50;
-        const characterDeltaY = this.defaultDeltaY;
-
-        const character = new PlaybleCharacter(
-            new Frame(
-                this.imageRepository.zombieboy['run'],
-                this.imageRepository.zombieboy['run'][0].width,
-                this.imageRepository.zombieboy['run'][0].height
-            ),
-            new Coordinates(
-                characterStartX,
-                characterDeltaY,
-                characterWidth,
-                characterHeight,
-                1.11,
-                0.9
-            ),
-            this.animationRepository.getMultipleImagesAnimation()
-        );
-
-        return character;
-    }
-
-    createZombieGirl() {
-
-        const characterWidth = 521 / 2;
-        const characterHeight = 576 / 2;
-        const characterStartX = 50;
-        const characterDeltaY = this.defaultDeltaY;
-
-        const character = new PlaybleCharacter(
-            new Frame(
-                this.imageRepository.zombiegirl['run'],
-                this.imageRepository.zombiegirl['run'][0].width,
-                this.imageRepository.zombiegirl['run'][0].height
-            ),
-            new Coordinates(
-                characterStartX,
-                characterDeltaY,
-                characterWidth,
-                characterHeight,
-                1.11,
-                0.9
-            ),
-            this.animationRepository.getMultipleImagesAnimation()
-        );
-
-        return character;
-    }
-
-    createFoes() {
-        return [
-            this.createDroplet(),
-            this.createFlyngDroplet(),
-            this.createTroll()
-        ];
-    }
-
-    createHeart() {
-
-        return new NoPlaybleCharacter(
-            new Frame(
-                this.imageRepository.heartImage,
-                200,
-                167
-            ),
-            new Coordinates(
-                1.2 * width,
-                this.defaultDeltaY + 400,
-                100,
-                80,
-                1,
-                1
-            ),
-            this.animationRepository.getSimpleImageAnimation(),
-            false
-        );
-    }
-
-    createDroplet() {
-
-        const dropletWidth = 104;
-        const dropletHeight = 104;
-        const dropletSpriteWidth = 104;
-        const dropletSpriteHeight = 104;
         const dropletStartX = width;
-        const dropletDeltaY = this.defaultDeltaY;
+        const dropletDeltaY = this.defaultDeltaY + device.getHeightByParts(npc.deltaY);
 
         return new NoPlaybleCharacter(
             new Frame(
-                this.imageRepository.dropletImage,
-                dropletSpriteWidth,
-                dropletSpriteHeight
+                this.getNpcImage(code),
+                npc.width,
+                npc.height,
+                lastSpriteX,
+                lastSpriteY
             ),
             new Coordinates(
                 dropletStartX,
                 dropletDeltaY,
                 dropletWidth,
                 dropletHeight,
-                1.03,
-                0.7
+                1,//1.03,
+                1,//0.7
             ),
             this.animationRepository.getSimpleImageAnimation(),
-            true
+            npc.isEnemy
         );
     }
 
-    createFlyngDroplet() {
+    getNpcImage(code) {
 
-        const flyingDropletWidth = 200;
-        const flyingDropletHeight = 150;
-        const flyingDropletSpriteWidth = 200;
-        const flyingDropletSpriteHeight = 150;
-        const flyingDropletLastSpriteX = 0;
-        const flyingDropletLastSpriteY = 750;
-        const flyingDropletStartX = width;
-        const flyingDropletDeltaY = this.defaultDeltaY + 150;
+        switch(code) {
 
-        return new NoPlaybleCharacter(
-            new Frame(
-                this.imageRepository.flyingDropletImage,
-                flyingDropletSpriteWidth,
-                flyingDropletSpriteHeight,
-                flyingDropletLastSpriteX,
-                flyingDropletLastSpriteY
-            ),
-            new Coordinates(
-                flyingDropletStartX,
-                flyingDropletDeltaY,
-                flyingDropletWidth,
-                flyingDropletHeight,
-                1.05,
-                0.6
-            ),
-            this.animationRepository.getSimpleImageAnimation(),
-            true
-        );
+            case "heart":
+                return this.imageRepository.heartImage;
+
+            case "troll":
+                return this.imageRepository.trollImage;
+
+            case "flyingdroplet":
+                return this.imageRepository.flyingDropletImage;
+            
+            case "droplet":
+                return this.imageRepository.dropletImage;
+        }
+
+        return null;
     }
 
-    createTroll() {
-
-        const trollWidth = 400;
-        const trollHeight = 400;
-        const trollLastSpriteX = 800;
-        const trollLastSpriteY = 2000;
-        const trollStartX = width;
-        const trollDeltaY = this.defaultDeltaY - 50;
-
-        return new NoPlaybleCharacter(
-            new Frame(
-                this.imageRepository.trollImage,
-                trollWidth,
-                trollHeight,
-                trollLastSpriteX,
-                trollLastSpriteY
-            ),
-            new Coordinates(
-                trollStartX,
-                trollDeltaY,
-                trollWidth,
-                trollHeight,
-                1.10,
-                0.7
-            ),
-            this.animationRepository.getSimpleImageAnimation(),
-            true
-        );
-    }
 }
