@@ -1,17 +1,8 @@
 class AnimationRepository {
-
-    getSimpleImageAnimation() {
-        if (this.simpleImageAnimation == undefined) {
-            this.simpleImageAnimation = new SimpleImageAnimation();
-        }
-        return this.simpleImageAnimation;
+  getSimpleImageAnimation() {
+    if (this.simpleImageAnimation == undefined) {
+      this.simpleImageAnimation = new SimpleImageAnimation();
     }
-
-    getMultipleImagesAnimation() {
-        if (this.multipleImagesAnimation == undefined) {
-            this.multipleImagesAnimation = new MultipleImagesAnimation();
-        }
-        return this.multipleImagesAnimation;
-    }
-
+    return this.simpleImageAnimation;
+  }
 }

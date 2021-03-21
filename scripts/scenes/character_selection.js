@@ -1,73 +1,67 @@
 class CharacterSelection {
+  constructor(imageRepository, game, pcs) {
+    this.imageRepository = imageRepository;
+    this.game = game;
+    this.pcs = pcs;
 
-    constructor(imageRepository, game, pcs) {
-        this.imageRepository = imageRepository;
-        this.game = game;
-        this.pcs = pcs;
+    this.font = toMoveFont;
+    this.currentPc = this.pcs[0];
+  }
 
-        this.font = toMoveFont;
-        this.currentPcIndex = 0;
-        this.currentPc = this.pcs[this.currentPcIndex];
-    }
+  setup() {
+    this.buttons = [
+      new Button(
+        () => {
+          selectCharacter(game);
+        },
+        device.width * 0.45,
+        device.height * 0.8,
+        "Iniciar"
+      ),
+    ];
 
-    setup() {
+    this.buttons.forEach((button) => {
+      button.setup();
+    });
+    loop();
+  }
 
-        this.buttons = [
-            new Button(() => { characterSelection.currentPcIndex--; loop() }, device.width * 0.1, device.height * 0.5, '< Anterior'),
-            new Button(() => { characterSelection.currentPcIndex++; loop() }, device.width * 0.8, device.height * 0.5, 'Próximo > '),
-            new Button(() => { selectCharacter(characterSelection.currentPc.code, game) }, device.width * 0.45, device.height * 0.8, 'Escolher')
-        ];
+  keyPressed(keyCode) {
+    return this;
+  }
 
-        this.buttons.forEach(button => { button.setup(); });
-        loop();
-    }
+  draw() {
+    image(this.imageRepository.homeScreenImage, 0, 0, width, height);
 
-    keyPressed(keyCode) {
-        return this;
-    }
+    fill("#000");
 
-    draw() {
+    textFont(this.font);
+    textAlign(CENTER);
 
-        if (this.currentPcIndex >= this.pcs.length) {
-            this.currentPcIndex = 0;
-        }
+    textSize(50);
+    text("Quem e voce?", width / 2, height * 0.2);
 
-        if (this.currentPcIndex < 0) {
-            this.currentPcIndex = this.pcs.length - 1;
-        }
-        
-        this.currentPc = this.pcs[this.currentPcIndex];
+    textSize(40);
+    text(this.currentPc.name, width / 2, height * 0.3);
 
-        image(this.imageRepository.homeScreenImage, 0, 0, width, height);
+    image(
+      this.imageRepository["hipsta"]["run"][0],
+      width * 0.4,
+      height * 0.35,
+      this.currentPc.width,
+      this.currentPc.height
+    );
 
-        fill('#000');
+    textSize(30);
+    text(this.currentPc.description, width / 2, height * 0.7);
 
-        textFont(this.font);
-        textAlign(CENTER);
+    noLoop();
+    return this;
+  }
 
-        textSize(50);
-        text('Quem e voce?', width / 2, height * 0.2);
-
-        textSize(40);
-        text(this.currentPc.name, width / 2, height * 0.3);
-
-        image(
-            this.imageRepository[this.currentPc.code]['run'][0], 
-            width * 0.4, 
-            height * 0.35, 
-            this.currentPc.width, 
-            this.currentPc.height
-        );
-
-        textSize(30);
-        text(this.currentPc.description, width / 2, height * 0.7);
-
-        noLoop();
-        return this
-    }
-
-    clear() {
-        this.buttons.forEach(button => { button.clear(); });
-    }
-
+  clear() {
+    this.buttons.forEach((button) => {
+      button.clear();
+    });
+  }
 }
