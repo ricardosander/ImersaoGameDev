@@ -1,7 +1,7 @@
 class CharacterRepository {
   constructor(imageRepository) {
     this.imageRepository = imageRepository;
-    this.animationRepository = new AnimationRepository();
+    this.animation = new SimpleImageAnimation();
     this.defaultDeltaY = 100;
   }
 
@@ -33,7 +33,7 @@ class CharacterRepository {
         1.11,
         0.9
       ),
-      this.animationRepository.getSimpleImageAnimation()
+      this.animation
     );
 
     return character;
@@ -51,7 +51,7 @@ class CharacterRepository {
     return new NoPlaybleCharacter(
       new Frame(this.imageRepository.heartImage, 200, 167),
       new Coordinates(1.2 * width, this.defaultDeltaY + 400, 100, 80, 1, 1),
-      this.animationRepository.getSimpleImageAnimation(),
+      this.animation,
       false
     );
   }
@@ -78,7 +78,7 @@ class CharacterRepository {
         1.03,
         0.7
       ),
-      this.animationRepository.getSimpleImageAnimation(),
+      this.animation,
       true
     );
   }
@@ -109,7 +109,7 @@ class CharacterRepository {
         1.05,
         0.6
       ),
-      this.animationRepository.getSimpleImageAnimation(),
+      this.animation,
       true
     );
   }
@@ -138,7 +138,7 @@ class CharacterRepository {
         1.1,
         0.7
       ),
-      this.animationRepository.getSimpleImageAnimation(),
+      this.animation,
       true
     );
   }
